@@ -5,7 +5,11 @@
 int main() {
 
     userLoginRegister();
+
+    // printf("Username: %s", userName);
+    // printf("Password: %s", userPassword);
     return 0;
 }
+
 
 
