@@ -50,14 +50,19 @@ void userLogin() {
     clearInputBuffer();
     printf("Enter your username here: ");
     fgets(givenUsername, 20, stdin);
-
+    givenUsername[strcspn(givenUsername, "\n")] = '\0'; // Remove trailing newline character
 
     printf("Enter your password here: ");
     fgets(givenPassword, 20, stdin);
+    givenPassword[strcspn(givenPassword, "\n")] = '\0'; // Remove trailing newline character
+
 
     // Encrypt the password using Caesar cipher with a shift of 3 (for example)
     passwordEncrypt(givenPassword, 7);
 
-    printf("Given username: %s", givenUsername);
-    printf("Given password (hashed): %s", givenPassword);
+    if (strcmp(givenUsername, userName) == 0 && strcmp(givenPassword, userPassword) == 0) {
+        printf("Login success!");
+    } else {
+        printf("Not match");
+    }
 }
