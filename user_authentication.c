@@ -6,8 +6,9 @@ void userLoginRegister();
 void userLogin();
 void registerNewUser();
 
-const char userName[] = "azharanowar";
-const char userPassword[] = "123456";
+const char userName[20] = "azharanowar";
+const char userPassword[20] = "Huvdhy89pG";
+
 
 void userLoginRegister()
 {
@@ -24,14 +25,12 @@ void userLoginRegister()
 
     if (userChoice == 1) {
         // Login
-        loadingAnimation("\tLogin Form is Loading...", 300000);
+        loadingAnimation("Login form is loading", 300000);
         userLogin();
     } else if (userChoice == 2) {
         // Register
         void registerNewUser();
     } else {
-        printf("Error: Something went wrong!\n");
-
         printf("\n\033[1;31mWrong menu selection!!! Please enter correct menu number, For login enter: 1 and for register enter: 2.\033[0m\n");
         userLoginRegister(); // Repeating same function again to collect user input another time.
     }
