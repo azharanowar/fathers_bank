@@ -44,8 +44,7 @@ void registerNewUser()
 }
 
 
-void userLogin()
-{
+void userLogin() {
     char givenUsername[20];
     char givenPassword[20];
 
@@ -53,10 +52,13 @@ void userLogin()
     printf("Enter your username here: ");
     fgets(givenUsername, 20, stdin);
 
+
     printf("Enter your password here: ");
     fgets(givenPassword, 20, stdin);
 
-    printf("Given username: %s", givenUsername);
-    printf("Given password: %s", givenPassword);
-}
+    // Encrypt the password using Caesar cipher with a shift of 3 (for example)
+    passwordEncrypt(givenPassword, 7);
 
+    printf("Given username: %s", givenUsername);
+    printf("Given password (hashed): %s", givenPassword);
+}

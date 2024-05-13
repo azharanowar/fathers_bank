@@ -1,6 +1,23 @@
 #include <stdio.h>
 #include <math.h>
 #include <unistd.h>
+#include <string.h>
+
+
+// Function to encrypt a string using Caesar cipher
+void passwordEncrypt(char *plainPassword, int shift) {
+    int i;
+    for (i = 0; i < strlen(plainPassword); i++) {
+        // Encrypt uppercase letters
+        if (plainPassword[i] >= 'A' && plainPassword[i] <= 'Z') {
+            plainPassword[i] = ((plainPassword[i] - 'A') + shift) % 26 + 'A';
+        }
+        // Encrypt lowercase letters
+        else if (plainPassword[i] >= 'a' && plainPassword[i] <= 'z') {
+            plainPassword[i] = ((plainPassword[i] - 'a') + shift) % 26 + 'a';
+        }
+    }
+}
 
 void clearInputBuffer() {
     int c;
