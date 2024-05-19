@@ -30,18 +30,19 @@ typedef struct {
 void userLoginRegister() {
     int userChoice;
 
-    printf("\n\t\033[1;34m**** CHOOSE MENU FROM BELOW ****\033[0m\n\n");
-    printf("1. Login\n");
-    printf("2. Register\n");
+    printf(ANSI_BOLD);
+    printf(ANSI_BG_WHITE "\n\t **** CHOOSE MENU FROM BELOW **** " ANSI_RESET); printf("\n\n");
+    printf(" 1. Login\n");
+    printf(" 2. Register\n");
     printf("\n");
 
     printf("Enter menu number: ");
     scanf("%i", &userChoice);
-    printf("\n");
+    printf(ANSI_RESET "\n");
 
     if (userChoice == 1) {
         // Login
-        loadingAnimation("Login form is loading", 15000);
+        loadingAnimation("Login form is loading", 300000);
         userLogin();
 
         if (currentUserId != -1) {
@@ -49,7 +50,7 @@ void userLoginRegister() {
         }
     } else if (userChoice == 2) {
         // Register
-        loadingAnimation("Registration form is loading", 15000);
+        loadingAnimation("Registration form is loading", 30000);
         registerNewUser();
     } else {
         printf("\n\033[1;31mWrong menu selection!!! Please enter correct menu number, For login enter: 1 and for register enter: 2.\033[0m\n");
@@ -152,7 +153,14 @@ void registerNewUser() {
         // Save user data to file
         saveUserData(newUser.fullName, newUser.email, newUser.username, newUser.password, newUser.userRole);
         
-        printf("\033[1;32mYou have registered successfully! You can now login with your credentials.\033[0m\n");
+        printf(ANSI_GREEN ANSI_BOLD "\n\n\n" ANSI_RESET);
+        printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "\nYou have registered successfully! You can now login with your credentials." ANSI_RESET);
+        for (int i = 1; i <= 5; i++) {
+            printf(ANSI_GREEN ANSI_BOLD "." ANSI_RESET);
+            fflush(stdout); // Flush output buffer to display the loading animation immediately
+            usleep(300000); // Sleep for 300 milliseconds
+        }
+        printf("\n\n");
         break; // Exit loop after successful registration
     }
 
@@ -180,7 +188,13 @@ void userLogin() {
     int userID = getValidUserId(givenUsername, givenPassword);
 
     if (userID != -1) {
-        printf("\033[1;32mYou have logged in successfully! You will be redirected to your DASHBOARD shortly.\033[0m\n");
+        printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "\nYou have logged in successfully! You will be redirected to your DASHBOARD shortly." ANSI_RESET);
+        for (int i = 1; i <= 5; i++) {
+            printf(ANSI_GREEN ANSI_BOLD "." ANSI_RESET);
+            fflush(stdout); // Flush output buffer to display the loading animation immediately
+            usleep(300000); // Sleep for 300 milliseconds
+        }
+        printf("\n\n");
         
         // Retrieve full name and role of the user from the user data file
         // Assuming the file structure is: userID;fullName;email;username;password;userRole
@@ -203,7 +217,7 @@ void userLogin() {
         // Save session data with the retrieved full name and role
         updateSessionData(userID);
     } else {
-        printf("\n\033[1;31mUsername or password doesn't match our records! Please enter valid login credentials again.\033[0m\n");
+        printf(ANSI_RED ANSI_ITALIC "\nUsername or password doesn't match to our records! Please try again with a valid login credential.\n" ANSI_RESET);
         userLogin();
     }
 }

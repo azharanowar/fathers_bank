@@ -7,6 +7,7 @@
 #define ANSI_RESET      "\x1b[0m"
 #define ANSI_BOLD       "\x1b[1m"
 #define ANSI_UNDERLINE  "\x1b[4m"
+#define ANSI_ITALIC     "\x1b[3m"
 #define ANSI_BLACK      "\x1b[30m"
 #define ANSI_RED        "\x1b[31m"
 #define ANSI_GREEN      "\x1b[32m"
@@ -61,11 +62,11 @@ void clearInputBuffer() {
 
 void loadingAnimation(const char *loadingText, int millisecond) {
     // Simulate loading animation
-    printf("%s", loadingText);
+    printf(ANSI_ITALIC ANSI_BLUE "%s" ANSI_RESET, loadingText);
     for (int i = 1; i <= 5; i++) {
-        printf(".");
+        printf(ANSI_BLUE "." ANSI_RESET);
         fflush(stdout); // Flush output buffer to display the loading animation immediately
-        usleep(millisecond); // Sleep for 300 milliseconds
+         // Sleep for 300 milliseconds
     }
     printf("\n\n");
 }
