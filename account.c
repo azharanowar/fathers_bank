@@ -30,6 +30,5 @@ void saveBalanceToFile() {
 }
 
 double getCurrentBalance() {
-    readBalanceFromFile();
     return currentBalance;
 }

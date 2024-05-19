@@ -3,6 +3,7 @@
 #include "user_authentication.c"
 #include "account.c"
 #include "withdraw.c"
+#include "deposit.c"
 
 void showDashboardMenu();
 
@@ -22,6 +23,8 @@ int main() {
 
 void showDashboardMenu() {
     readBalanceFromFile();
+    double amount;
+
     printf(ANSI_BG_WHITE ANSI_BOLD "\t **** CHOOSE DASHBOARD MENU FROM BELOW **** "ANSI_RESET); printf("\n\n");
 
     printf(ANSI_BOLD);
@@ -49,17 +52,20 @@ void showDashboardMenu() {
             showDashboardMenu();
             break;
         case 2:
-            // Implement Deposit function
+            printf("Enter the amount to deposit: $");
+            scanf("%lf", &amount);
+            depositMoney(amount);
+            showDashboardMenu();
             break;
         case 3:
-            double amount;
-            printf("Enter the amount to withdraw: ");
+            printf("Enter the amount to withdraw: $");
             scanf("%lf", &amount);
             withdraw(amount);  // Call the withdraw function from withdraw.c
             showDashboardMenu();
             break;
         case 4:
-            // Implement Bill Payment function
+            // Bill payment...
+            showDashboardMenu();
             break;
         case 5:
             userLogout();

@@ -3,6 +3,7 @@
         "stdio.h": "c",
         "math.h": "c",
         "string.h": "c",
-        "user_session.h": "c"
+        "user_session.h": "c",
+        "time.h": "c"
     }
 }

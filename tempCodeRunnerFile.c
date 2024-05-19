@@ -1,1 +1,1 @@
-getCurrentBalance
+depositMoney

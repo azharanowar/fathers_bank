@@ -3,7 +3,10 @@
 #include <time.h>
 #include <string.h>
 
+
 int checkStatementFile();
+extern double currentBalance;
+extern void saveBalanceToFile();
 
 #define TRANSACTION_FILE "statement.txt"
 
@@ -12,6 +15,9 @@ void addNewTransactionRecord(double amount, const char *username, const char *ro
         printf("Error creating transaction file.\n");
         return;
     }
+
+    // Calculate the new current balance before recording the transaction
+    
 
     FILE *file = fopen(TRANSACTION_FILE, "a");
     if (file == NULL) {
@@ -33,11 +39,15 @@ void addNewTransactionRecord(double amount, const char *username, const char *ro
     cleanUsername[strcspn(cleanUsername, "\n")] = '\0';
     cleanRole[strcspn(cleanRole, "\n")] = '\0';
 
-    // Write transaction to file without extra newlines
-    fprintf(file, "%s;%s;%.2f;%s;%s\n", timestamp, transactionType, amount, cleanUsername, cleanRole);
+    // Write transaction to file including the current balance
+    fprintf(file, "%s;%s;%.2f;%s;%s;%.2f\n", timestamp, transactionType, amount, cleanUsername, cleanRole, currentBalance);
 
     fclose(file);
+
+    // Update the current balance after writing the transaction
+    // saveBalanceToFile();
 }
+
 
 int checkStatementFile() {
     FILE *file = fopen(TRANSACTION_FILE, "r");
@@ -52,14 +62,14 @@ int checkStatementFile() {
         }
         
         // Get initial balance from account.c
-        double initialBalance = getCurrentBalance();
+        double initialBalance = currentBalance;
 
-        // Add initial deposit transaction with Father role
+        // Add initial deposit transaction with Father role, including the initial balance
         time_t now = time(NULL);
         struct tm *currentTime = localtime(&now);
         char timestamp[20];
         strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", currentTime);
-        fprintf(file, "%s;Deposit;%.2f;UsernameNotApplicable;Father\n", timestamp, initialBalance);
+        fprintf(file, "%s;Deposit;%.2f;UsernameNotApplicable;Father;%.2f\n", timestamp, initialBalance, initialBalance);
         
         fclose(file); // Close the file after creating it
         return 1; // Return success
