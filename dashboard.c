@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include "user_authentication.c"
 #include "account.c"
-
-extern double getBalance();
+#include "withdraw.c"
 
 void showDashboardMenu();
 
@@ -22,6 +21,7 @@ int main() {
 }
 
 void showDashboardMenu() {
+    readBalanceFromFile();
     printf(ANSI_BG_WHITE ANSI_BOLD "\t **** CHOOSE DASHBOARD MENU FROM BELOW **** "ANSI_RESET); printf("\n\n");
 
     printf(ANSI_BOLD);
@@ -42,7 +42,7 @@ void showDashboardMenu() {
             
             printf(ANSI_BOLD);
             printf("Your current balance is: ");
-            printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, getBalance());
+            printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, getCurrentBalance());
             printf(ANSI_RESET);
             printf("\n\n");
             usleep(500000);
@@ -52,13 +52,19 @@ void showDashboardMenu() {
             // Implement Deposit function
             break;
         case 3:
-            // Implement Withdraw function
+            double amount;
+            printf("Enter the amount to withdraw: ");
+            scanf("%lf", &amount);
+            withdraw(amount);  // Call the withdraw function from withdraw.c
+            showDashboardMenu();
             break;
         case 4:
             // Implement Bill Payment function
             break;
         case 5:
-            // Implement Logout function
+            userLogout();
+            userLoginRegister();
+            showDashboardMenu();
             break;
         default:
             printf(ANSI_RED ANSI_ITALIC "Wrong menu choice! Please enter 1-5 to select menu.\n\n" ANSI_RESET);

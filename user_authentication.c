@@ -4,8 +4,8 @@
 #include "common.c"
 
 // Session variables
-char currentUsername[20] = "";
 int currentUserId = -1;
+char currentUsername[20] = "";
 char currentUserFullName[50] = "";
 char currentUserRole[20] = "";
 
@@ -50,7 +50,7 @@ void userLoginRegister() {
         }
     } else if (userChoice == 2) {
         // Register
-        loadingAnimation("Registration form is loading", 30000);
+        loadingAnimation("Registration form is loading", 300000);
         registerNewUser();
     } else {
         printf("\n\033[1;31mWrong menu selection!!! Please enter correct menu number, For login enter: 1 and for register enter: 2.\033[0m\n");
@@ -69,13 +69,13 @@ void registerNewUser() {
         printf("Enter your full name: ");
         fgets(newUser.fullName, sizeof(newUser.fullName), stdin);
         newUser.fullName[strcspn(newUser.fullName, "\n")] = '\0'; // Remove trailing newline character
-
+    
         // Validate full name
         if (strlen(newUser.fullName) == 0) {
-            printf("\n\033[1;31mFull name is mandatory. Please provide your full name.\033[0m\n");
+            printf(ANSI_RED ANSI_ITALIC "Full name field is mandatory. Please provide you full name. \n\n" ANSI_RESET);
             continue; // Restart loop to prompt for full name again
         }
-
+        
         // Prompt user for email
         printf("Enter your email: ");
         fgets(newUser.email, sizeof(newUser.email), stdin);
@@ -83,37 +83,47 @@ void registerNewUser() {
 
         // Validate email
         if (strlen(newUser.email) == 0) {
-            printf("\n\033[1;31mEmail is mandatory. Please provide your email address.\033[0m\n");
+            printf(ANSI_RED ANSI_ITALIC "Email address is mandatory. Please provide your email address. \n\n" ANSI_RESET);
             continue; // Restart loop to prompt for email again
         }
 
-        // Prompt user for username
-        printf("Enter your username: ");
-        fgets(newUser.username, sizeof(newUser.username), stdin);
-        newUser.username[strcspn(newUser.username, "\n")] = '\0'; // Remove trailing newline character
+        // Loop to handle username input and checking for uniqueness
+        while (1) {
+            // Prompt user for username
+            printf("Enter your username: ");
+            fgets(newUser.username, sizeof(newUser.username), stdin);
+            newUser.username[strcspn(newUser.username, "\n")] = '\0'; // Remove trailing newline character
 
-        // Validate username
-        if (strlen(newUser.username) == 0) {
-            printf("\n\033[1;31mUsername is mandatory. Please provide a username.\033[0m\n");
-            continue; // Restart loop to prompt for username again
-        }
-
-        // Check if the username already exists
-        FILE *userFilePtr = fopen(userFile, "r");
-        if (userFilePtr == NULL) {
-            perror("Could not open user file");
-            exit(EXIT_FAILURE);
-        }
-        int existingUserId;
-        char storedUsername[20], storedPassword[20], storedUserRole[20];
-        while (fscanf(userFilePtr, "%d;%*[^;];%*[^;];%[^;];%[^;];%[^\n]", &existingUserId, storedUsername, storedPassword, storedUserRole) != EOF) {
-            if (strcmp(newUser.username, storedUsername) == 0) {
-                fclose(userFilePtr);
-                printf("\n\033[1;31mUsername already exists. Please choose a different username.\033[0m\n");
+            // Validate username
+            if (strlen(newUser.username) == 0) {
+                printf(ANSI_RED ANSI_ITALIC "Username is mandatory. Please provide a username. \n\n" ANSI_RESET);
                 continue; // Restart loop to prompt for username again
             }
+
+            // Check if the username already exists
+            FILE *userFilePtr = fopen(userFile, "r");
+            if (userFilePtr == NULL) {
+                perror("Could not open user file");
+                exit(EXIT_FAILURE);
+            }
+
+            int existingUserId;
+            char storedUsername[20], storedPassword[20], storedUserRole[20];
+            int usernameExists = 0;
+            while (fscanf(userFilePtr, "%d;%*[^;];%*[^;];%[^;];%[^;];%[^\n]", &existingUserId, storedUsername, storedPassword, storedUserRole) != EOF) {
+                if (strcmp(newUser.username, storedUsername) == 0) {
+                    usernameExists = 1;
+                    break;
+                }
+            }
+            fclose(userFilePtr);
+
+            if (usernameExists) {
+                printf(ANSI_RED ANSI_ITALIC "Username already exists. Please choose a different username. \n\n" ANSI_RESET);
+            } else {
+                break; // Exit username input loop if username is unique
+            }
         }
-        fclose(userFilePtr);
 
         // Prompt user for password
         printf("Enter your password: ");
@@ -122,7 +132,7 @@ void registerNewUser() {
 
         // Validate password
         if (strlen(newUser.password) == 0) {
-            printf("\n\033[1;31mPassword is mandatory. Please provide a password.\033[0m\n");
+            printf(ANSI_RED ANSI_ITALIC "Password is mandatory. Please provide a password. \n\n" ANSI_RESET);
             continue; // Restart loop to prompt for password again
         }
 
@@ -143,7 +153,7 @@ void registerNewUser() {
                 strcpy(newUser.userRole, "Child");
                 break;
             } else {
-                printf("\nInvalid choice. Please enter 1 for 'Father' or 2 for 'Child'.\n");
+                printf(ANSI_RED ANSI_ITALIC "\nInvalid choice. Please enter 1 for 'Father' or 2 for 'Child'.\n" ANSI_RESET);
             }
         }
 
@@ -222,6 +232,11 @@ void userLogin() {
     }
 }
 
+void userLogout() {
+    updateSessionData(-1);
+    printf(ANSI_GREEN ANSI_ITALIC "You have successfully logged out! \n\n" ANSI_RESET);
+}
+
 
 
 void saveUserData(const char *fullName, const char *email, const char *username, const char *password, const char *userRole) {
@@ -268,31 +283,40 @@ int getValidUserId(const char *username, const char *password) {
 
 // Function to update session data
 void updateSessionData(int userId) {
-    FILE *file = fopen(userFile, "r");
-    if (file == NULL) {
-        perror("Could not open user file");
-        exit(EXIT_FAILURE);
-    }
+    if (userId == -1) {
+        int currentUserId = -1;
+        char currentUsername[20] = "";
+        char currentUserFullName[50] = "";
+        char currentUserRole[20] = "";
 
-    // Loop through the file to find the user with the given user ID
-    char line[150]; // Assuming maximum line length in the user file
-    while (fgets(line, sizeof(line), file) != NULL) {
-        int id;
-        char fullName[50], role[20], username[20], password[20];
-        sscanf(line, "%d;%49[^;];%49[^;];%19[^;];%19[^;];%19[^;]", &id, fullName, username, password, role);
-        if (id == userId) {
-            currentUserId = id;
-            strcpy(currentUserFullName, fullName);
-            strcpy(currentUsername, username);
-            strcpy(currentUserRole, role);
-            fclose(file);
-            return;
+        // User session clean for logout;
+    } else {
+        FILE *file = fopen(userFile, "r");
+        if (file == NULL) {
+            perror("Could not open user file");
+            exit(EXIT_FAILURE);
         }
-    }
 
-    // If user ID not found
-    printf("User with ID %d not found.\n", userId);
-    fclose(file);
+        // Loop through the file to find the user with the given user ID
+        char line[150]; // Assuming maximum line length in the user file
+        while (fgets(line, sizeof(line), file) != NULL) {
+            int id;
+            char fullName[50], email[50], username[20], password[20], role[20];
+            sscanf(line, "%d;%49[^;];%49[^;];%19[^;];%19[^;];%19[^;]", &id, fullName, email, username, password, role);
+            if (id == userId) {
+                currentUserId = id;
+                strcpy(currentUserFullName, fullName);
+                strcpy(currentUsername, username);
+                strcpy(currentUserRole, role);
+                fclose(file);
+                return;
+            }
+        }
+
+        // If user ID not found
+        printf("User with ID %d not found.\n", userId);
+        fclose(file);
+    }
 }
 
 

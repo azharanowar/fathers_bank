@@ -66,7 +66,7 @@ void loadingAnimation(const char *loadingText, int millisecond) {
     for (int i = 1; i <= 5; i++) {
         printf(ANSI_BLUE "." ANSI_RESET);
         fflush(stdout); // Flush output buffer to display the loading animation immediately
-         // Sleep for 300 milliseconds
+        usleep(millisecond);
     }
     printf("\n\n");
 }
