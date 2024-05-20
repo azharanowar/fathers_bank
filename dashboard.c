@@ -9,7 +9,10 @@
 void showDashboardMenu();
 
 int main() {
-    printf(ANSI_BOLD ANSI_BG_BLUE "\n **** WELCOME TO \"FATHER\'S BANK\" **** \n\n" ANSI_RESET);
+    printf("\n");
+    printf(ANSI_BOLD ANSI_BG_BLUE " **** WELCOME TO \"FATHER\'S BANK\" **** " ANSI_RESET);
+    printf("\n\n");
+
     userLoginRegister();
     if (currentUserId != -1) {
         printf(ANSI_BOLD ANSI_BG_BLUE " Welcome back, %s! " ANSI_RESET, currentUserFullName);

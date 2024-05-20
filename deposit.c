@@ -5,6 +5,9 @@ extern double currentBalance;
 extern void saveBalanceToFile();
 
 void depositMoney(double amount) {
+    if (!checkStatementFile()) {
+        checkStatementFile();
+    }
     
     currentBalance += amount;
     saveBalanceToFile();

@@ -8,20 +8,13 @@ int checkStatementFile();
 extern double currentBalance;
 extern void saveBalanceToFile();
 
-#define TRANSACTION_FILE "statement.txt"
+#define STATEMENT_FILE "statement.txt"
 
 void addNewTransactionRecord(double amount, const char *username, const char *role, const char *transactionType) {
-    if (!checkStatementFile()) {
-        printf("Error creating transaction file.\n");
-        return;
-    }
-
-    // Calculate the new current balance before recording the transaction
-    
-
-    FILE *file = fopen(TRANSACTION_FILE, "a");
+     
+    FILE *file = fopen(STATEMENT_FILE, "a");
     if (file == NULL) {
-        printf("Error opening file.\n");
+        printf(ANSI_RED ANSI_ITALIC "\nError opening statement file: %s\n\n" ANSI_RESET, STATEMENT_FILE);
         return;
     }
 
@@ -50,14 +43,13 @@ void addNewTransactionRecord(double amount, const char *username, const char *ro
 
 
 int checkStatementFile() {
-    FILE *file = fopen(TRANSACTION_FILE, "r");
+    FILE *file = fopen(STATEMENT_FILE, "r");
     if (file == NULL) {
-        // If the file doesn't exist, create it and add an initial transaction
-        printf("Statement file does not exist. Creating a new one.\n");
-        file = fopen(TRANSACTION_FILE, "w");
+        // If the file doesn't exist, create it and add an initial statement
+        printf(ANSI_RED ANSI_ITALIC "\nStatement file does not exist! New statement.txt file will generated now...\n\n" ANSI_RESET);
+        file = fopen(STATEMENT_FILE, "w");
         if (file == NULL) {
-            printf("Error creating transaction file: %s\n", TRANSACTION_FILE);
-            perror("fopen");
+            printf(ANSI_RED ANSI_ITALIC "\nError creating statement file: %s\n\n" ANSI_RESET, STATEMENT_FILE);
             return 0; // Return failure if unable to create the file
         }
         

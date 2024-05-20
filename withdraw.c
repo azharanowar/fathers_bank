@@ -58,7 +58,7 @@ void updateWithdrawLimits(double amount) {
 int checkWithdrawalHistory(double amount) {
 
     if (!checkStatementFile()) {
-        return 0; // Return failure if unable to create the transaction file
+        checkStatementFile();
     }
 
     FILE *file = fopen(TRANSACTION_FILE, "r");
