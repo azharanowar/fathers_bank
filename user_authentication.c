@@ -14,7 +14,7 @@ void userLoginRegister();
 void userLogin();
 void registerNewUser();
 void saveUserData(const char *fullName, const char *email, const char *username, const char *password, const char *userRole);
-int getValidUserId(const char *username, const char *password);
+int validateUserLogin(const char *username, const char *password);
 
 const char userFile[] = "users.txt";
 
@@ -53,7 +53,7 @@ void userLoginRegister() {
         loadingAnimation("Registration form is loading", 300000);
         registerNewUser();
     } else {
-        printf("\n\033[1;31mWrong menu selection!!! Please enter correct menu number, For login enter: 1 and for register enter: 2.\033[0m\n");
+        printf(ANSI_RED ANSI_ITALIC "\nWrong menu selection!!! Please enter correct menu number, For login enter: 1 and for register enter: 2.\n" ANSI_RESET);
         userLoginRegister(); // Repeating same function again to collect user input another time.
     }
 }
@@ -195,7 +195,7 @@ void userLogin() {
     // Encrypt the password using Caesar cipher with a shift of 7 (for example)
     passwordEncrypt(givenPassword, 7);
 
-    int userID = getValidUserId(givenUsername, givenPassword);
+    int userID = validateUserLogin(givenUsername, givenPassword);
 
     if (userID != -1) {
         printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "\nYou have logged in successfully! You will be redirected to your DASHBOARD shortly." ANSI_RESET);
@@ -206,26 +206,25 @@ void userLogin() {
         }
         printf("\n\n");
         
-        // Retrieve full name and role of the user from the user data file
-        // Assuming the file structure is: userID;fullName;email;username;password;userRole
-        char fullName[50]; // Assuming max length of full name is 50 characters
-        char userRole[20]; // Assuming max length of role is 20 characters
-        FILE *file = fopen(userFile, "r");
-        if (file == NULL) {
-            perror("Could not open user file");
-            exit(EXIT_FAILURE);
-        }
-        while (fscanf(file, "%*d;%49[^;];%*[^;];%*[^;];%*[^;];%19s", fullName, userRole) != EOF) {
-            if (strcmp(givenUsername, fullName) == 0) {
-                // Found the user, so break the loop
-                break;
-            }
-        }
-        // Close the file after retrieving the full name and role
-        fclose(file);
+        // // Retrieve full name and role of the user from the user data file
+        // // Assuming the file structure is: userID;fullName;email;username;password;userRole
+        // char fullName[50]; // Assuming max length of full name is 50 characters
+        // char userRole[20]; // Assuming max length of role is 20 characters
+        // FILE *file = fopen(userFile, "r");
+        // if (file == NULL) {
+        //     perror("Could not open user file");
+        //     exit(EXIT_FAILURE);
+        // }
+        // while (fscanf(file, "%*d;%49[^;];%*[^;];%*[^;];%*[^;];%19s", fullName, userRole) != EOF) {
+        //     if (strcmp(givenUsername, fullName) == 0) {
+        //         // Found the user, so break the loop
+        //         break;
+        //     }
+        // }
+        // // Close the file after retrieving the full name and role
+        // fclose(file);
         
         // Save session data with the retrieved full name and role
-        updateSessionData(userID);
     } else {
         printf(ANSI_RED ANSI_ITALIC "\nUsername or password doesn't match to our records! Please try again with a valid login credential.\n" ANSI_RESET);
         userLogin();
@@ -242,8 +241,8 @@ void userLogout() {
 void saveUserData(const char *fullName, const char *email, const char *username, const char *password, const char *userRole) {
     FILE *file = fopen(userFile, "a+");
     if (file == NULL) {
-        perror("Could not open user file");
-        exit(EXIT_FAILURE);
+        printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please try again by checking your system.\n\n" ANSI_RESET);
+        return;
     }
 
     // Determine the next user ID
@@ -261,18 +260,21 @@ void saveUserData(const char *fullName, const char *email, const char *username,
     fclose(file);
 }
 
-int getValidUserId(const char *username, const char *password) {
+int validateUserLogin(const char *username, const char *password) {
     FILE *file = fopen(userFile, "r");
     if (file == NULL) {
-        perror("Could not open user file");
-        exit(EXIT_FAILURE);
+        printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please try again by checking your system.\n\n" ANSI_RESET);
+        return -1;
     }
 
     int userID;
     char storedUsername[20], storedPassword[20], storedUserRole[20];
     while (fscanf(file, "%d;%*[^;];%*[^;];%[^;];%[^;];%[^\n]", &userID, storedUsername, storedPassword, storedUserRole) != EOF) {
         if (strcmp(username, storedUsername) == 0 && strcmp(password, storedPassword) == 0) {
+            // Valid login credentials. User logged in successfully.
             fclose(file);
+
+            updateSessionData(userID); // Update session data for new logged in user...
             return userID;
         }
     }
