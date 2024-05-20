@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "common.c"
 
 // Session variables
 int currentUserId = -1;
@@ -205,26 +204,6 @@ void userLogin() {
             usleep(300000); // Sleep for 300 milliseconds
         }
         printf("\n\n");
-        
-        // // Retrieve full name and role of the user from the user data file
-        // // Assuming the file structure is: userID;fullName;email;username;password;userRole
-        // char fullName[50]; // Assuming max length of full name is 50 characters
-        // char userRole[20]; // Assuming max length of role is 20 characters
-        // FILE *file = fopen(userFile, "r");
-        // if (file == NULL) {
-        //     perror("Could not open user file");
-        //     exit(EXIT_FAILURE);
-        // }
-        // while (fscanf(file, "%*d;%49[^;];%*[^;];%*[^;];%*[^;];%19s", fullName, userRole) != EOF) {
-        //     if (strcmp(givenUsername, fullName) == 0) {
-        //         // Found the user, so break the loop
-        //         break;
-        //     }
-        // }
-        // // Close the file after retrieving the full name and role
-        // fclose(file);
-        
-        // Save session data with the retrieved full name and role
     } else {
         printf(ANSI_RED ANSI_ITALIC "\nUsername or password doesn't match to our records! Please try again with a valid login credential.\n" ANSI_RESET);
         userLogin();
@@ -241,7 +220,7 @@ void userLogout() {
 void saveUserData(const char *fullName, const char *email, const char *username, const char *password, const char *userRole) {
     FILE *file = fopen(userFile, "a+");
     if (file == NULL) {
-        printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please try again by checking your system.\n\n" ANSI_RESET);
+        printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please check your system and try again.\n\n" ANSI_RESET);
         return;
     }
 
@@ -263,7 +242,7 @@ void saveUserData(const char *fullName, const char *email, const char *username,
 int validateUserLogin(const char *username, const char *password) {
     FILE *file = fopen(userFile, "r");
     if (file == NULL) {
-        printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please try again by checking your system.\n\n" ANSI_RESET);
+        printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please check your system and try again.\n\n" ANSI_RESET);
         return -1;
     }
 
@@ -295,8 +274,8 @@ void updateSessionData(int userId) {
     } else {
         FILE *file = fopen(userFile, "r");
         if (file == NULL) {
-            perror("Could not open user file");
-            exit(EXIT_FAILURE);
+            printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please check your system and try again.\n\n" ANSI_RESET);
+            return;
         }
 
         // Loop through the file to find the user with the given user ID
@@ -316,8 +295,8 @@ void updateSessionData(int userId) {
         }
 
         // If user ID not found
-        printf("User with ID %d not found.\n", userId);
-        fclose(file);
+        printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please check your system and try again.\n\n" ANSI_RESET);
+        return;
     }
 }
 

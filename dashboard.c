@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "common.c"
 #include "user_authentication.c"
 #include "account.c"
 #include "withdraw.c"
