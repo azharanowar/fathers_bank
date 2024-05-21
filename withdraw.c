@@ -30,19 +30,19 @@ int canWithdraw(double amount, const char *role) {
 
     // Check daily withdrawal limit
     if ((totalWithdrawnDaily + amount) > MAX_WITHDRAW_AMOUNT_DAILY) {
-        printf("Daily withdrawal limit exceeded\n");
+        printf(ANSI_RED ANSI_ITALIC "\nYour daily withdrawal limit is exceeded! Please try again.\n\n" ANSI_RESET);
         return 0;
     }
 
     // Check monthly withdrawal limit
     if ((totalWithdrawnMonthly + amount) > MAX_WITHDRAW_AMOUNT_MONTHLY) {
-        printf("Monthly withdrawal limit exceeded\n");
+        printf(ANSI_RED ANSI_ITALIC "\nYour monthly withdrawal limit is exceeded! Please try again.\n\n" ANSI_RESET);
         return 0;
     }
 
     // Check user's historical withdrawals
     if (!checkWithdrawalHistory(amount)) {
-        printf("Monthly withdrawal limit exceeded based on historical withdrawals\n");
+        printf(ANSI_RED ANSI_ITALIC "\nYour monthly withdrawal limit is exceeded based on historical withdrawals! Please try again.\n\n" ANSI_RESET);
         return 0;
     }
 
@@ -63,7 +63,7 @@ int checkWithdrawalHistory(double amount) {
 
     FILE *file = fopen(TRANSACTION_FILE, "r");
     if (file == NULL) {
-        printf("Error opening transaction file.\n");
+        printf(ANSI_RED ANSI_ITALIC "\nError opening transaction file.\n\n" ANSI_RESET);
         return 0;
     }
     // File exists, proceed with checking withdrawal history...
@@ -120,12 +120,12 @@ int checkWithdrawalHistory(double amount) {
 int withdraw(double amount) {
     // Withdraw money from the account
     if (amount <= 0) {
-        printf("Invalid withdrawal amount\n");
+        printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
         return 0;
     }
 
     if (currentBalance < amount) {
-        printf("Insufficient balance\n");
+        printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance.\n\n" ANSI_RESET);
         return 0;
     }
 
@@ -139,7 +139,18 @@ int withdraw(double amount) {
     saveBalanceToFile();
 
     // Print withdrawal confirmation
-    printf("Withdrawal of $%.2f successful\n", amount);
+    printf("\n");
+    printf(ANSI_BOLD);
+    printf(ANSI_GREEN "Successfully withdrawn the amount of " ANSI_RESET);
+    printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, amount);
+    printf(ANSI_RESET);
+    printf("\n\n");
+    printf(ANSI_BOLD);
+    printf(ANSI_GREEN "New account balance is balance is " ANSI_RESET);
+    printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, currentBalance);
+    printf(ANSI_RESET);
+    printf("\n\n");
+    usleep(500000);
 
     // Generate withdraw statement
     addNewTransactionRecord(amount, currentUsername, currentUserRole, "Withdraw");
