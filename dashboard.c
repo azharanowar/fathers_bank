@@ -1,10 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "common.h"
 #include "common.c"
+#include "user_authentication.h"
 #include "user_authentication.c"
+#include "account.h"
 #include "account.c"
-#include "withdraw.c"
+#include "deposit.h"
 #include "deposit.c"
+#include "withdraw.h"
+#include "withdraw.c"
 
 void showDashboardMenu();
 

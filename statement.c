@@ -1,17 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
+#include "statement.h"
 
-
-int checkStatementFile();
 extern double currentBalance;
-extern void saveBalanceToFile();
 
 #define STATEMENT_FILE "statement.txt"
 
 void addNewTransactionRecord(double amount, const char *username, const char *role, const char *transactionType) {
-     
     FILE *file = fopen(STATEMENT_FILE, "a");
     if (file == NULL) {
         printf(ANSI_RED ANSI_ITALIC "\nError opening statement file: %s\n\n" ANSI_RESET, STATEMENT_FILE);
@@ -36,23 +29,19 @@ void addNewTransactionRecord(double amount, const char *username, const char *ro
     fprintf(file, "%s;%s;%.2f;%s;%s;%.2f\n", timestamp, transactionType, amount, cleanUsername, cleanRole, currentBalance);
 
     fclose(file);
-
-    // Update the current balance after writing the transaction
-    // saveBalanceToFile();
 }
-
 
 int checkStatementFile() {
     FILE *file = fopen(STATEMENT_FILE, "r");
     if (file == NULL) {
         // If the file doesn't exist, create it and add an initial statement
-        printf(ANSI_RED ANSI_ITALIC "\nStatement file does not exist! New statement.txt file will generated now...\n\n" ANSI_RESET);
+        printf(ANSI_RED ANSI_ITALIC "\nStatement file does not exist! New statement.txt file will be generated now...\n\n" ANSI_RESET);
         file = fopen(STATEMENT_FILE, "w");
         if (file == NULL) {
             printf(ANSI_RED ANSI_ITALIC "\nError creating statement file: %s\n\n" ANSI_RESET, STATEMENT_FILE);
             return 0; // Return failure if unable to create the file
         }
-        
+
         // Get initial balance from account.c
         double initialBalance = currentBalance;
 
@@ -62,7 +51,7 @@ int checkStatementFile() {
         char timestamp[20];
         strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", currentTime);
         fprintf(file, "%s;Deposit;%.2f;UsernameNotApplicable;Father;%.2f\n", timestamp, initialBalance, initialBalance);
-        
+
         fclose(file); // Close the file after creating it
         return 1; // Return success
     }

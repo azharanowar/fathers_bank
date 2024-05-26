@@ -4,6 +4,11 @@
         "math.h": "c",
         "string.h": "c",
         "user_session.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "user_authentication.h": "c",
+        "common.h": "c",
+        "account.h": "c",
+        "statement.h": "c",
+        "withdraw.h": "c"
     }
 }

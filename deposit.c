@@ -1,11 +1,19 @@
 #include <stdio.h>
-
+#include "common.h"
+#include "deposit.h"
+#include "statement.h"
 
 extern double currentBalance;
+extern char currentUsername[20]; // Change type to match user_authentication.c
+extern char currentUserRole[20]; // Change type to match user_authentication.c
+
+// External functions defined elsewhere
 extern void saveBalanceToFile();
+extern void addNewTransactionRecord(double amount, const char *username, const char *userRole, const char *transactionType);
 
 void depositMoney(double amount) {
     if (!checkStatementFile()) {
+        // Assuming checkStatementFile() is declared in statement.h and defined elsewhere
         checkStatementFile();
     }
     
@@ -20,7 +28,7 @@ void depositMoney(double amount) {
     printf(ANSI_RESET);
     printf("\n\n");
     printf(ANSI_BOLD);
-    printf(ANSI_GREEN "New account balance is balance is " ANSI_RESET);
+    printf(ANSI_GREEN "New account balance is " ANSI_RESET);
     printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, currentBalance);
     printf(ANSI_RESET);
     printf("\n\n");

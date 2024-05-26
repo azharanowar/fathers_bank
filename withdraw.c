@@ -22,9 +22,55 @@ double totalWithdrawnMonthly = 0;
 
 int checkWithdrawalHistory(double amount);
 
-int canWithdraw(double amount, const char *role) {
+int withdraw(double amount) {
+    // Withdraw money from the account
+    if (amount <= 0) {
+        printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
+        return 0;
+    }
+
+    if (currentBalance < amount) {
+        printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance.\n\n" ANSI_RESET);
+        return 0;
+    }
+
+    if (!canWithdraw(amount, currentUserRole)) {
+        return 0;
+    }
+
+    // Update account balance and withdrawal limits
+    currentBalance -= amount;
+    updateWithdrawLimits(amount);
+    saveBalanceToFile();
+
+    // Print withdrawal confirmation
+    printf("\n");
+    printf(ANSI_BOLD);
+    printf(ANSI_GREEN "Successfully withdrawn the amount of " ANSI_RESET);
+    printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, amount);
+    printf(ANSI_RESET);
+
+    printf("\n\n");
+
+    printf(ANSI_BOLD);
+    printf(ANSI_GREEN "New account balance is balance is " ANSI_RESET);
+    printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, currentBalance);
+    printf(ANSI_RESET);
+    printf("\n\n");
+    usleep(500000);
+
+    // Generate withdraw statement
+    addNewTransactionRecord(amount, currentUsername, currentUserRole, "Withdraw");
+
+    return 1;
+}
+
+int canWithdraw(double amount, const char *currentUserRole) {
     // Check if the user can withdraw the specified amount
-    if (strcmp(role, FATHER_ROLE) == 0) {
+    printf("%d\n", strcmp(currentUserRole, FATHER_ROLE));
+    printf("role: '%s' (length: %zu)\n", currentUserRole, strlen(currentUserRole));
+    printf("FATHER_ROLE: '%s' (length: %zu)\n", FATHER_ROLE, strlen(FATHER_ROLE));
+    if (strcmp(currentUserRole, FATHER_ROLE) == 0) {
         return 1; // Father role can withdraw unlimited
     }
 
@@ -114,46 +160,5 @@ int checkWithdrawalHistory(double amount) {
     }
 
     fclose(file);
-    return 1;
-}
-
-int withdraw(double amount) {
-    // Withdraw money from the account
-    if (amount <= 0) {
-        printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
-        return 0;
-    }
-
-    if (currentBalance < amount) {
-        printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance.\n\n" ANSI_RESET);
-        return 0;
-    }
-
-    if (!canWithdraw(amount, currentUserRole)) {
-        return 0;
-    }
-
-    // Update account balance and withdrawal limits
-    currentBalance -= amount;
-    updateWithdrawLimits(amount);
-    saveBalanceToFile();
-
-    // Print withdrawal confirmation
-    printf("\n");
-    printf(ANSI_BOLD);
-    printf(ANSI_GREEN "Successfully withdrawn the amount of " ANSI_RESET);
-    printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, amount);
-    printf(ANSI_RESET);
-    printf("\n\n");
-    printf(ANSI_BOLD);
-    printf(ANSI_GREEN "New account balance is balance is " ANSI_RESET);
-    printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, currentBalance);
-    printf(ANSI_RESET);
-    printf("\n\n");
-    usleep(500000);
-
-    // Generate withdraw statement
-    addNewTransactionRecord(amount, currentUsername, currentUserRole, "Withdraw");
-
     return 1;
 }
