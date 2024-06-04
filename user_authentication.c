@@ -12,30 +12,38 @@ const char userFile[] = "users.txt";
 void userLoginRegister() {
     int userChoice;
 
+    printf(ANSI_BOLD ANSI_BG_WHITE "\n\t **** CHOOSE MENU FROM BELOW **** " ANSI_RESET); printf("\n\n");
     printf(ANSI_BOLD);
-    printf(ANSI_BG_WHITE "\n\t **** CHOOSE MENU FROM BELOW **** " ANSI_RESET); printf("\n\n");
     printf(" 1. Login\n");
     printf(" 2. Register\n");
     printf("\n");
 
     printf("Enter menu number: ");
     scanf("%i", &userChoice);
-    printf(ANSI_RESET "\n");
+    printf(ANSI_RESET);
 
     if (userChoice == 1) {
         system("cls");
+        printf(ANSI_BOLD);
         loadingAnimation("Login form is loading", 300000);
+        printf(ANSI_RESET);
+        // system("cls");
         userLogin();
         if (currentUserId != -1) {
             return;
         }
     } else if (userChoice == 2) {
         system("cls");
+        printf(ANSI_BOLD);
         loadingAnimation("Registration form is loading", 300000);
+        printf(ANSI_RESET);
+        // system("cls");
         registerNewUser();
     } else {
         system("cls");
+        printf(ANSI_BOLD);
         printf(ANSI_RED ANSI_ITALIC "\nWrong menu selection!!! Please enter correct menu number, For login enter: 1 and for register enter: 2.\n" ANSI_RESET);
+        printf(ANSI_RESET);
         userLoginRegister();
     }
 }
@@ -45,6 +53,7 @@ void registerNewUser() {
 
     while (1) {
         clearInputBuffer();
+        printf(ANSI_BOLD);
         printf("Enter your full name: ");
         fgets(newUser.fullName, sizeof(newUser.fullName), stdin);
         newUser.fullName[strcspn(newUser.fullName, "\n")] = '\0';
@@ -121,6 +130,7 @@ void registerNewUser() {
                 printf(ANSI_RED ANSI_ITALIC "\nInvalid choice. Please enter 1 for 'Father' or 2 for 'Child'.\n" ANSI_RESET);
             }
         }
+        printf(ANSI_RESET);
 
         passwordEncrypt(newUser.password, 7);
         saveUserData(newUser.fullName, newUser.email, newUser.username, newUser.password, newUser.userRole);
@@ -145,6 +155,7 @@ void userLogin() {
     char givenPassword[20];
 
     clearInputBuffer();
+    printf(ANSI_BOLD);
     printf("Enter your username here: ");
     fgets(givenUsername, sizeof(givenUsername), stdin);
     givenUsername[strcspn(givenUsername, "\n")] = '\0';
@@ -168,17 +179,18 @@ void userLogin() {
         system("cls");
     } else {
         system("cls");
-        printf(ANSI_RED ANSI_ITALIC "\nUsername or password doesn't match our records! Please try again with valid login credentials.\n" ANSI_RESET);
-        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "\nUsername or password doesn't match with our records! Please try again with valid login credentials.\n" ANSI_RESET);
         userLogin();
     }
+    printf(ANSI_RESET);
 }
 
 void userLogout() {
     updateSessionData(-1);
     system("cls");
+    printf(ANSI_BOLD);
     printf(ANSI_GREEN ANSI_ITALIC "You have successfully logged out! \n\n" ANSI_RESET);
-    system("cls");
+    printf(ANSI_RESET);
 }
 
 void saveUserData(const char *fullName, const char *email, const char *username, const char *password, const char *userRole) {

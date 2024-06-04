@@ -11,3 +11,16 @@
 2024-06-04 13:29:48;Withdraw;400.00;azharanowar;Child;900.00
 2024-06-05 01:00:21;Withdraw;100.00;rangamiya;Child;800.00
 2024-06-05 01:00:33;Deposit;400.00;rangamiya;Child;1200.00
+2024-06-05 01:15:15;Deposit;200.00;nurbek;Father;1400.00
+2024-06-05 01:16:42;Deposit;200.00;sijankhan;Child;1600.00
+2024-06-05 01:16:51;Withdraw;900.00;sijankhan;Child;700.00
+2024-06-05 01:24:55;Deposit;3000.00;azharanowar;Child;3700.00
+2024-06-05 01:25:51;Deposit;300.00;azharanowar;Child;4000.00
+2024-06-05 01:26:03;Withdraw;300.00;azharanowar;Child;3700.00
+2024-06-05 01:26:08;Withdraw;300.00;azharanowar;Child;3400.00
+2024-06-05 01:26:18;Withdraw;300.00;azharanowar;Child;3100.00
+2024-06-05 01:31:42;Withdraw;100.00;azharanowar;Child;3000.00
+2024-06-05 01:31:54;Withdraw;300.00;azharanowar;Child;2700.00
+2024-06-05 01:32:34;Withdraw;300.00;azharanowar;Child;2400.00
+2024-06-05 01:34:07;Withdraw;100.00;rangamiya;Child;2300.00
+2024-06-05 01:34:16;Withdraw;200.00;rangamiya;Child;2100.00

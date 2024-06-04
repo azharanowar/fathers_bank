@@ -73,6 +73,8 @@ int canWithdraw(double amount, const char *currentUserRole) {
         return 1; // Father role can withdraw unlimited
     }
 
+    checkWithdrawalHistory(amount);
+
     // Check daily withdrawal limit
     if ((totalWithdrawnDaily + amount) > MAX_WITHDRAW_AMOUNT_DAILY) {
         system("cls");

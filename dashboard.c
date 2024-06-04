@@ -52,7 +52,7 @@ void showDashboardMenu() {
 
     switch (choice) {
         case 1:
-            
+            system("cls");
             printf(ANSI_BOLD);
             printf("Your current balance is: ");
             printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, getCurrentBalance());
@@ -62,14 +62,20 @@ void showDashboardMenu() {
             showDashboardMenu();
             break;
         case 2:
+            system("cls");
+            printf(ANSI_BOLD);
             printf("Enter the amount to deposit: $");
             scanf("%lf", &amount);
+            printf(ANSI_RESET);
             depositMoney(amount);
             showDashboardMenu();
             break;
         case 3:
+             system("cls");
+            printf(ANSI_BOLD);
             printf("Enter the amount to withdraw: $");
             scanf("%lf", &amount);
+            printf(ANSI_RESET);
             withdraw(amount);  // Call the withdraw function from withdraw.c
             showDashboardMenu();
             break;
