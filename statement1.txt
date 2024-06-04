@@ -1,5 +1,0 @@
-2024-05-18 14:30:00;Deposit;5000;taohid;Father
-2024-05-19 17:55:20;Withdraw;100.00;azharanowar;Child
-2024-05-19 17:55:30;Withdraw;122.00;azharanowar;Child
-2024-05-19 18:00:16;Withdraw;1000.00;azharanowar;Child
-2024-05-19 19:39:36;Withdraw;100.00;azharanowar;Child

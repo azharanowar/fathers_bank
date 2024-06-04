@@ -23,15 +23,18 @@ void userLoginRegister() {
     printf(ANSI_RESET "\n");
 
     if (userChoice == 1) {
+        system("cls");
         loadingAnimation("Login form is loading", 300000);
         userLogin();
         if (currentUserId != -1) {
             return;
         }
     } else if (userChoice == 2) {
+        system("cls");
         loadingAnimation("Registration form is loading", 300000);
         registerNewUser();
     } else {
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nWrong menu selection!!! Please enter correct menu number, For login enter: 1 and for register enter: 2.\n" ANSI_RESET);
         userLoginRegister();
     }
@@ -123,6 +126,7 @@ void registerNewUser() {
         saveUserData(newUser.fullName, newUser.email, newUser.username, newUser.password, newUser.userRole);
 
         printf(ANSI_GREEN ANSI_BOLD "\n\n\n" ANSI_RESET);
+        system("cls");
         printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "\nYou have registered successfully! You can now login with your credentials." ANSI_RESET);
         for (int i = 1; i <= 5; i++) {
             printf(ANSI_GREEN ANSI_BOLD "." ANSI_RESET);
@@ -153,6 +157,7 @@ void userLogin() {
     int userID = validateUserLogin(givenUsername, givenPassword);
 
     if (userID != -1) {
+        system("cls");
         printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "\nYou have logged in successfully! You will be redirected to your DASHBOARD shortly." ANSI_RESET);
         for (int i = 1; i <= 5; i++) {
             printf(ANSI_GREEN ANSI_BOLD "." ANSI_RESET);
@@ -160,20 +165,26 @@ void userLogin() {
             usleep(300000);
         }
         printf("\n\n");
+        system("cls");
     } else {
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nUsername or password doesn't match our records! Please try again with valid login credentials.\n" ANSI_RESET);
+        system("cls");
         userLogin();
     }
 }
 
 void userLogout() {
     updateSessionData(-1);
+    system("cls");
     printf(ANSI_GREEN ANSI_ITALIC "You have successfully logged out! \n\n" ANSI_RESET);
+    system("cls");
 }
 
 void saveUserData(const char *fullName, const char *email, const char *username, const char *password, const char *userRole) {
     FILE *file = fopen(userFile, "a+");
     if (file == NULL) {
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please check your system and try again.\n\n" ANSI_RESET);
         return;
     }
@@ -195,6 +206,7 @@ void saveUserData(const char *fullName, const char *email, const char *username,
 int validateUserLogin(const char *username, const char *password) {
     FILE *file = fopen(userFile, "r");
     if (file == NULL) {
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please check your system and try again.\n\n" ANSI_RESET);
         return -1;
     }
@@ -222,6 +234,7 @@ void updateSessionData(int userId) {
     } else {
         FILE *file = fopen(userFile, "r");
         if (file == NULL) {
+            system("cls");
             printf(ANSI_RED ANSI_ITALIC "\nUser file could not open! Please check your system and try again.\n\n" ANSI_RESET);
             return;
         }

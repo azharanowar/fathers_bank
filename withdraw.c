@@ -25,12 +25,14 @@ int checkWithdrawalHistory(double amount);
 int withdraw(double amount) {
     // Withdraw money from the account
     if (amount <= 0) {
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
         return 0;
     }
 
     if (currentBalance < amount) {
-        printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance.\n\n" ANSI_RESET);
+        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance for withdrawing the amount of $%.2f.\n\n" ANSI_RESET, amount);
         return 0;
     }
 
@@ -45,6 +47,7 @@ int withdraw(double amount) {
 
     // Print withdrawal confirmation
     printf("\n");
+    system("cls");
     printf(ANSI_BOLD);
     printf(ANSI_GREEN "Successfully withdrawn the amount of " ANSI_RESET);
     printf(ANSI_BG_BLUE " $%.2f " ANSI_RESET, amount);
@@ -66,28 +69,27 @@ int withdraw(double amount) {
 }
 
 int canWithdraw(double amount, const char *currentUserRole) {
-    // Check if the user can withdraw the specified amount
-    printf("%d\n", strcmp(currentUserRole, FATHER_ROLE));
-    printf("role: '%s' (length: %zu)\n", currentUserRole, strlen(currentUserRole));
-    printf("FATHER_ROLE: '%s' (length: %zu)\n", FATHER_ROLE, strlen(FATHER_ROLE));
     if (strcmp(currentUserRole, FATHER_ROLE) == 0) {
         return 1; // Father role can withdraw unlimited
     }
 
     // Check daily withdrawal limit
     if ((totalWithdrawnDaily + amount) > MAX_WITHDRAW_AMOUNT_DAILY) {
-        printf(ANSI_RED ANSI_ITALIC "\nYour daily withdrawal limit is exceeded! Please try again.\n\n" ANSI_RESET);
+        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "\nYour daily withdrawal limit is exceeded! Please try again another day!\n\n" ANSI_RESET);
         return 0;
     }
 
     // Check monthly withdrawal limit
     if ((totalWithdrawnMonthly + amount) > MAX_WITHDRAW_AMOUNT_MONTHLY) {
-        printf(ANSI_RED ANSI_ITALIC "\nYour monthly withdrawal limit is exceeded! Please try again.\n\n" ANSI_RESET);
+        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "\nYour monthly withdrawal limit is exceeded! Please try again next month!\n\n" ANSI_RESET);
         return 0;
     }
 
     // Check user's historical withdrawals
     if (!checkWithdrawalHistory(amount)) {
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nYour monthly withdrawal limit is exceeded based on historical withdrawals! Please try again.\n\n" ANSI_RESET);
         return 0;
     }
@@ -109,6 +111,7 @@ int checkWithdrawalHistory(double amount) {
 
     FILE *file = fopen(TRANSACTION_FILE, "r");
     if (file == NULL) {
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nError opening transaction file.\n\n" ANSI_RESET);
         return 0;
     }

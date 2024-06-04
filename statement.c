@@ -7,6 +7,7 @@ extern double currentBalance;
 void addNewTransactionRecord(double amount, const char *username, const char *role, const char *transactionType) {
     FILE *file = fopen(STATEMENT_FILE, "a");
     if (file == NULL) {
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nError opening statement file: %s\n\n" ANSI_RESET, STATEMENT_FILE);
         return;
     }
@@ -35,9 +36,11 @@ int checkStatementFile() {
     FILE *file = fopen(STATEMENT_FILE, "r");
     if (file == NULL) {
         // If the file doesn't exist, create it and add an initial statement
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nStatement file does not exist! New statement.txt file will be generated now...\n\n" ANSI_RESET);
         file = fopen(STATEMENT_FILE, "w");
         if (file == NULL) {
+            system("cls");
             printf(ANSI_RED ANSI_ITALIC "\nError creating statement file: %s\n\n" ANSI_RESET, STATEMENT_FILE);
             return 0; // Return failure if unable to create the file
         }

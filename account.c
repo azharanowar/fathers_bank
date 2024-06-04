@@ -8,6 +8,7 @@ void readBalanceFromFile() {
         // If the file doesn't exist, create it with an initial balance of 1000
         file = fopen("balance.txt", "w");
         if (file == NULL) {
+            system("cls");
             printf(ANSI_RED ANSI_ITALIC "\nError opening balance file for writing! Please check your system and try again.\n\n" ANSI_RESET);
             return;
         }
@@ -22,6 +23,7 @@ void readBalanceFromFile() {
 void saveBalanceToFile() {
     FILE *file = fopen("balance.txt", "w");
     if (file == NULL) {
+        system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nError opening balance file for writing! Please check your system and try again.\n\n" ANSI_RESET);
         return;
     }
