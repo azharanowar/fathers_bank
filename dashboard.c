@@ -11,6 +11,8 @@
 #include "deposit.c"
 #include "withdraw.h"
 #include "withdraw.c"
+#include "bill_payments.h"
+#include "bill_payments.c"
 
 void showDashboardMenu();
 
@@ -80,7 +82,8 @@ void showDashboardMenu() {
             showDashboardMenu();
             break;
         case 4:
-            // Bill payment...
+            system("cls");
+            billPayments();
             showDashboardMenu();
             break;
         case 5:

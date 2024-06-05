@@ -176,7 +176,6 @@ void userLogin() {
             usleep(300000);
         }
         printf("\n\n");
-        system("cls");
     } else {
         system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nUsername or password doesn't match with our records! Please try again with valid login credentials.\n" ANSI_RESET);

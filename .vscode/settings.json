@@ -9,6 +9,7 @@
         "common.h": "c",
         "account.h": "c",
         "statement.h": "c",
-        "withdraw.h": "c"
+        "withdraw.h": "c",
+        "bill_payments.h": "c"
     }
 }
