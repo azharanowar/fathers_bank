@@ -58,7 +58,6 @@ void payElectricityBill() {
         return;
     } else {
         currentBalance -= amount;
-        updateWithdrawLimits(amount);
         saveBalanceToFile();
 
         // Print withdrawal confirmation
@@ -103,7 +102,6 @@ void payGasBill() {
         return;
     } else {
         currentBalance -= amount;
-        updateWithdrawLimits(amount);
         saveBalanceToFile();
 
         // Print withdrawal confirmation
@@ -149,7 +147,6 @@ void payTransportationBill() {
         return;
     } else {
         currentBalance -= amount;
-        updateWithdrawLimits(amount);
         saveBalanceToFile();
 
         // Print withdrawal confirmation

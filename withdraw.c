@@ -22,9 +22,7 @@ double getCurrentBalance();
 double getDailyWithdrawn();
 double getMonthlyWithdrawn();
 
-int checkWithdrawalHistory(double amount);
 int canWithdraw(double amount, const char *currentUserRole);
-void updateWithdrawLimits(double amount);
 
 int withdraw(double amount) {
     // Withdraw money from the account
@@ -46,7 +44,6 @@ int withdraw(double amount) {
 
     // Update account balance and withdrawal limits
     currentBalance -= amount;
-    updateWithdrawLimits(amount);
     saveBalanceToFile();
 
     // Print withdrawal confirmation
@@ -91,9 +88,6 @@ int canWithdraw(double amount, const char *currentUserRole) {
     return 1;
 }
 
-void updateWithdrawLimits(double amount) {
-    // This function may be redundant now as we're calculating daily and monthly withdrawals dynamically
-}
 
 double getDailyWithdrawn() {
     FILE *file = fopen(TRANSACTION_FILE, "r");
@@ -179,9 +173,4 @@ double getMonthlyWithdrawn() {
 
     fclose(file);
     return totalMonthlyWithdrawals;
-}
-
-int checkWithdrawalHistory(double amount) {
-    // Not required as we are dynamically calculating the daily and monthly withdrawals
-    return 1;
 }
