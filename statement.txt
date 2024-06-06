@@ -26,7 +26,7 @@
 2024-06-05 01:34:16;Withdraw;200.00;rangamiya;Child;2100.00
 2024-06-05 02:08:59;Withdraw;300.00;azharanowar;Child;1800.00
 2024-06-05 11:15:18;Bill payment;30.00;azharanowar;Child;1770.00
-2024-06-05 11:21:41;Bill payment;300.00;azharanowar;Child;1470.00
+2024-06-05 11:21:41;Bill payment;4800.00;azharanowar;Child;1470.00
 2024-06-05 11:24:04;Bill payment;300.00;nurbek;Father;1170.00
 2024-06-05 11:31:26;ElecBillPayment;30.00;sijankhan;Child;1140.00
 2024-06-05 11:32:44;ElecBillPayment;10.00;sijankhan;Child;1130.00
@@ -35,3 +35,7 @@
 2024-06-05 11:34:14;Deposit;500.00;sijankhan;Child;1510.00
 2024-06-05 11:34:23;Deposit;5000.00;sijankhan;Child;6510.00
 2024-06-05 11:39:07;ElecBillPayment;20.00;shayekh;Child;6490.00
+2024-06-05 23:46:17;Withdraw;4800.00;azharanowar;Child;6190.00
+2024-06-06 23:47:33;Withdraw;100.00;azharanowar;Child;5290.00
+2024-06-06 23:55:13;Withdraw;100.00;azharanowar;Child;4890.00
+2024-06-06 23:55:54;Withdraw;300.00;azharanowar;Child;4590.00
