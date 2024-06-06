@@ -27,7 +27,6 @@ void userLoginRegister() {
         printf(ANSI_BOLD);
         loadingAnimation("Login form is loading", 300000);
         printf(ANSI_RESET);
-        // system("cls");
         userLogin();
         if (currentUserId != -1) {
             return;
@@ -37,7 +36,6 @@ void userLoginRegister() {
         printf(ANSI_BOLD);
         loadingAnimation("Registration form is loading", 300000);
         printf(ANSI_RESET);
-        // system("cls");
         registerNewUser();
     } else {
         system("cls");
@@ -85,10 +83,19 @@ void registerNewUser() {
                 exit(EXIT_FAILURE);
             }
 
-            int existingUserId;
-            char storedUsername[20], storedPassword[20], storedUserRole[20];
+            char line[100];
             int usernameExists = 0;
-            while (fscanf(userFilePtr, "%d;%*[^;];%*[^;];%[^;];%[^;];%[^\n]", &existingUserId, storedUsername, storedPassword, storedUserRole) != EOF) {
+            while (fgets(line, sizeof(line), userFilePtr) != NULL) {
+                char *token;
+                token = strtok(line, ";"); // Skip userID
+
+                token = strtok(NULL, ";"); // Skip fullName
+                token = strtok(NULL, ";"); // Skip email
+
+                token = strtok(NULL, ";");
+                char storedUsername[20];
+                strcpy(storedUsername, token);
+
                 if (strcmp(newUser.username, storedUsername) == 0) {
                     usernameExists = 1;
                     break;
@@ -222,9 +229,28 @@ int validateUserLogin(const char *username, const char *password) {
         return -1;
     }
 
-    int userID;
-    char storedUsername[20], storedPassword[20], storedUserRole[20];
-    while (fscanf(file, "%d;%*[^;];%*[^;];%[^;];%[^;];%[^\n]", &userID, storedUsername, storedPassword, storedUserRole) != EOF) {
+    char line[100];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        int userID;
+        char storedUsername[20], storedPassword[20], storedUserRole[20];
+
+        char *token = strtok(line, ";");
+        userID = atoi(token);
+
+        token = strtok(NULL, ";"); // Skip fullName
+        token = strtok(NULL, ";"); // Skip email
+
+        token = strtok(NULL, ";");
+        strcpy(storedUsername, token);
+
+        token = strtok(NULL, ";");
+        strcpy(storedPassword, token);
+
+        token = strtok(NULL, ";");
+        strcpy(storedUserRole, token);
+
+        storedUserRole[strcspn(storedUserRole, "\n")] = 0; // Remove newline character
+
         if (strcmp(username, storedUsername) == 0 && strcmp(password, storedPassword) == 0) {
             fclose(file);
             updateSessionData(userID);
@@ -250,9 +276,31 @@ void updateSessionData(int userId) {
             return;
         }
 
-        int userID;
-        char fullName[50], email[50], username[20], password[20], userRole[20];
-        while (fscanf(file, "%d;%[^;];%[^;];%[^;];%[^;];%[^\n]", &userID, fullName, email, username, password, userRole) != EOF) {
+        char line[100];
+        while (fgets(line, sizeof(line), file) != NULL) {
+            int userID;
+            char fullName[50], email[50], username[20], password[20], userRole[20];
+
+            char *token = strtok(line, ";");
+            userID = atoi(token);
+
+            token = strtok(NULL, ";");
+            strcpy(fullName, token);
+
+            token = strtok(NULL, ";");
+            strcpy(email, token);
+
+            token = strtok(NULL, ";");
+            strcpy(username, token);
+
+            token = strtok(NULL, ";");
+            strcpy(password, token);
+
+            token = strtok(NULL, ";");
+            strcpy(userRole, token);
+
+            userRole[strcspn(userRole, "\n")] = 0; // Remove newline character
+
             if (userID == userId) {
                 strcpy(currentUsername, username);
                 strcpy(currentUserFullName, fullName);

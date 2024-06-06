@@ -88,8 +88,7 @@ void showDashboardMenu() {
             break;
         case 5:
             userLogout();
-            userLoginRegister();
-            showDashboardMenu();
+            main();
             break;
         default:
             printf(ANSI_RED ANSI_ITALIC "Wrong menu choice! Please enter 1-5 to select menu.\n\n" ANSI_RESET);

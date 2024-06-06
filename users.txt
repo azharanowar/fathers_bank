@@ -8,3 +8,4 @@
 8;Nurbek;nurbek@gmail.com;nurbek;ubyilr;Father
 9;Ranga Miya;rangamiyabanga@gmail.com;rangamiya;yhunhtpfh;Child
 10;z;z;z;g;Father
+11;Ata Miya;atamiya@gmail.com;atamiya;hahtpfh;Child
