@@ -44,7 +44,8 @@ void showDashboardMenu() {
     printf(" 2. Deposit Money\n");
     printf(" 3. Withdraw Money\n");
     printf(" 4. Bill Payment\n");
-    printf(" 5. Logout\n\n");
+    strcmp(currentUserRole, "Father") == 0 ? printf(" 5. View Statement\n") : ' '; // Only show if user role is "Father" with ternary operator
+    printf(" 0. Logout\n\n");
 
     printf("Enter your choice: ");
     int choice;
@@ -87,11 +88,21 @@ void showDashboardMenu() {
             showDashboardMenu();
             break;
         case 5:
+            if (strcmp(currentUserRole, "Father") == 0) {
+                system("cls");
+                displayStatement();
+                showDashboardMenu();
+            } else {
+                printf(ANSI_RED ANSI_ITALIC "You do not have permission to view the statement.\n\n" ANSI_RESET);
+                showDashboardMenu();
+            }
+            break;
+        case 0:
             userLogout();
             main();
             break;
         default:
-            printf(ANSI_RED ANSI_ITALIC "Wrong menu choice! Please enter 1-5 to select menu.\n\n" ANSI_RESET);
+            printf(ANSI_RED ANSI_ITALIC "Wrong menu choice! Please enter correct menu number to proceed.\n\n" ANSI_RESET);
             showDashboardMenu();
             break;
     }

@@ -41,3 +41,4 @@
 2024-06-06 23:55:54;Withdraw;300.00;azharanowar;Child;4590.00
 2024-06-07 00:29:51;Withdraw;700.00;azharanowar;Child;3890.00
 2024-06-07 00:31:02;Withdraw;300.00;azharanowar;Child;3590.00
+2024-06-07 18:25:13;ElecBillPayment;300.00;azharanowar;Child;3290.00

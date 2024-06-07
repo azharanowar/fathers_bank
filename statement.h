@@ -13,4 +13,6 @@ void addNewTransactionRecord(double amount, const char *username, const char *ro
 // Function to check if the statement file exists and create it if necessary
 int checkStatementFile();
 
+void displayStatement();
+
 #endif // STATEMENT_H

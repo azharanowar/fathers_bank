@@ -114,7 +114,7 @@ void registerNewUser() {
         fgets(newUser.password, sizeof(newUser.password), stdin);
         newUser.password[strcspn(newUser.password, "\n")] = '\0';
         if (strlen(newUser.password) == 0) {
-            printf(ANSI_RED ANSI_ITALIC "Password is mandatory. Please provide a password. \n\n" ANSI_RESET);
+            printf(ANSI_RED ANSI_ITALIC "Password field is mandatory. Please provide a password. \n\n" ANSI_RESET);
             continue;
         }
 
