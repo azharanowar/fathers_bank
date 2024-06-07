@@ -37,9 +37,9 @@ void clearInputBuffer() {
 
 void loadingAnimation(const char *loadingText, int millisecond) {
     // Simulate loading animation
-    printf(ANSI_ITALIC ANSI_BLUE "%s" ANSI_RESET, loadingText);
+    printf(ANSI_ITALIC ANSI_MAGENTA "%s" ANSI_RESET, loadingText);
     for (int i = 1; i <= 5; i++) {
-        printf(ANSI_BLUE "." ANSI_RESET);
+        printf(ANSI_MAGENTA "." ANSI_RESET);
         fflush(stdout); // Flush output buffer to display the loading animation immediately
         usleep(millisecond);
     }

@@ -16,8 +16,10 @@ void userLoginRegister() {
     printf(ANSI_BOLD);
     printf(" 1. Login\n");
     printf(" 2. Register\n");
+    printf(ANSI_RESET);
     printf("\n");
 
+    printf(ANSI_BOLD ANSI_CYAN ANSI_ITALIC);
     printf("Enter menu number: ");
     scanf("%i", &userChoice);
     printf(ANSI_RESET);
@@ -51,7 +53,7 @@ void registerNewUser() {
 
     while (1) {
         clearInputBuffer();
-        printf(ANSI_BOLD);
+        printf(ANSI_BOLD ANSI_ITALIC);
         printf("Enter your full name: ");
         fgets(newUser.fullName, sizeof(newUser.fullName), stdin);
         newUser.fullName[strcspn(newUser.fullName, "\n")] = '\0';
@@ -144,7 +146,7 @@ void registerNewUser() {
 
         printf(ANSI_GREEN ANSI_BOLD "\n\n\n" ANSI_RESET);
         system("cls");
-        printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "\nYou have registered successfully! You can now login with your credentials." ANSI_RESET);
+        printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "You have registered successfully! You can now login with your credentials." ANSI_RESET);
         for (int i = 1; i <= 5; i++) {
             printf(ANSI_GREEN ANSI_BOLD "." ANSI_RESET);
             fflush(stdout);
@@ -162,7 +164,7 @@ void userLogin() {
     char givenPassword[20];
 
     clearInputBuffer();
-    printf(ANSI_BOLD);
+    printf(ANSI_BOLD ANSI_ITALIC);
     printf("Enter your username here: ");
     fgets(givenUsername, sizeof(givenUsername), stdin);
     givenUsername[strcspn(givenUsername, "\n")] = '\0';

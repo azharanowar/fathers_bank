@@ -64,6 +64,11 @@ int checkStatementFile() {
 }
 
 void displayStatement() {
+
+    if (strcmp(currentUserRole, "Father") != 0) {
+        return;
+    }
+
     FILE *file = fopen(STATEMENT_FILE, "r");
     if (file == NULL) {
         system("cls");

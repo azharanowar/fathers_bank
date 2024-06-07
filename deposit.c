@@ -11,6 +11,12 @@ void depositMoney(double amount) {
     if (!checkStatementFile()) {
         checkStatementFile();
     }
+
+    if (amount <= 0) {
+        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
+        return;
+    }
     
     currentBalance += amount;
     saveBalanceToFile();

@@ -8,7 +8,9 @@ void billPayments() {
     printf(" 2. Pay Gas Bill\n");
     printf(" 3. Pay Transportation Bill\n");
     printf(" 0. Exit\n");
+    printf(ANSI_RESET);
 
+    printf(ANSI_BOLD ANSI_CYAN ANSI_ITALIC);
     printf("\nEnter your choice: ");
     int choice;
     scanf("%d", &choice);
