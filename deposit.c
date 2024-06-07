@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include "common.h"
-#include "deposit.h"
 #include "statement.h"
 
 extern double currentBalance;

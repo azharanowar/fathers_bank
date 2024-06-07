@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "common.h"
 
 #define TRANSACTION_FILE "statement.txt"

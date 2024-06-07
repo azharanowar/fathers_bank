@@ -1,9 +1,6 @@
 #ifndef USER_AUTHENTICATION_H
 #define USER_AUTHENTICATION_H
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
 // Session variables
 extern int currentUserId;

@@ -1,9 +1,5 @@
 // withdraw.c
 #include "withdraw.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 #include "statement.c"
 
 #define MAX_WITHDRAW_AMOUNT_DAILY 1000

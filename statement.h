@@ -1,10 +1,6 @@
 #ifndef STATEMENT_H
 #define STATEMENT_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
 #include "common.h"
 
 // Function to add a new transaction record

@@ -2,10 +2,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include <stdio.h>
-#include <math.h>
 #include <unistd.h>
-#include <string.h>
 #include <ctype.h>
 
 // ANSI escape codes for text formatting
