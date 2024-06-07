@@ -67,91 +67,14 @@ void showDashboardMenu() {
             showDashboardMenu();
             break;
         case 2:
-            printf(ANSI_BOLD ANSI_ITALIC);
-            printf("Enter the amount to deposit: $");
-            scanf("%lf", &amount);
-            printf(ANSI_RESET);
-
-            // Showing confirmation for deposit...
-            clearInputBuffer();
-            printf(ANSI_BOLD ANSI_ITALIC);
-            printf("\nAre you sure you want to deposit the amount of $%.2f? Enter Y/y to confirm or press any key for main menu: ", amount);
-            scanf("%c", &confirmProceed);
-            printf(ANSI_RESET);
-            printf("\n");
-
-            if (confirmProceed == 'Y' || confirmProceed == 'y') {
-                depositMoney(amount);
-            } else {
-                system("cls");
-                printf(ANSI_RED ANSI_ITALIC "Your deposit transection has been cancelled!" ANSI_RESET);
-                showDashboardMenu();
-                break;
-            }
-
-            // If user want to make another deposit...
-            clearInputBuffer();
-            printf(ANSI_BOLD ANSI_ITALIC);
-            printf("To make another deposit enter Y/y or press any key for main menu: ");
-            scanf("%c", &toContinue);
-            printf(ANSI_RESET);
-            printf("\n");
-
-            if (toContinue == 'Y' || toContinue == 'y') {
-                printf(ANSI_BOLD ANSI_ITALIC);
-                printf("Enter the amount to deposit: $");
-                scanf("%lf", &amount);
-                printf(ANSI_RESET);
-                depositMoney(amount);
-            } else {
-                system("cls");
-                showDashboardMenu();
-                break;
-            }
-            
+            system("cls");
+            depositMoney();
+            showDashboardMenu();
+            break;
         case 3:
             system("cls");
-            printf(ANSI_BOLD ANSI_ITALIC);
-            printf("Enter the amount to withdraw: $");
-            scanf("%lf", &amount);
-            printf(ANSI_RESET);
-
-            // Showing confirmation for deposit...
-            clearInputBuffer();
-            printf(ANSI_BOLD ANSI_ITALIC);
-            printf("\nAre you sure you want to withdraw the amount of $%.2f? Enter Y/y to confirm or press any key for main menu: ", amount);
-            scanf("%c", &confirmProceed);
-            printf(ANSI_RESET);
-            printf("\n");
-
-            if (confirmProceed == 'Y' || confirmProceed == 'y') {
-                withdraw(amount);  // Call the withdraw function from withdraw.c
-            } else {
-                system("cls");
-                printf(ANSI_RED ANSI_ITALIC "Your withdraw transection has been cancelled!" ANSI_RESET);
-                showDashboardMenu();
-                break;
-            }
-
-            // If user want to make another withdraw...
-            clearInputBuffer();
-            printf(ANSI_BOLD ANSI_ITALIC);
-            printf("To make another withdraw enter Y/y or press any key for main menu: ");
-            scanf("%c", &toContinue);
-            printf(ANSI_RESET);
-            printf("\n");
-
-            if (toContinue == 'Y' || toContinue == 'y') {
-                printf(ANSI_BOLD ANSI_ITALIC);
-                printf("Enter the amount to withdraw: $");
-                scanf("%lf", &amount);
-                printf(ANSI_RESET);
-                withdraw(amount);  // Call the withdraw function from withdraw.c
-            } else {
-                system("cls");
-                showDashboardMenu();
-                break;
-            }
+            withdrawMoney();
+            break;
         case 4:
             system("cls");
             billPayments();

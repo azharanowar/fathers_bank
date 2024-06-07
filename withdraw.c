@@ -1,41 +1,46 @@
 // withdraw.c
 #include "withdraw.h"
-#include "statement.c"
 
-#define MAX_WITHDRAW_AMOUNT_DAILY 1000
-#define MAX_WITHDRAW_AMOUNT_MONTHLY 5000
-#define FATHER_ROLE "Father"
-#define TRANSACTION_FILE "statement.txt"
+double amount;
+void withdrawMoney() {
+    char toContinue;
+    char confirmProceed;
 
-extern double currentBalance;
-extern char currentUsername[20];
-extern char currentUserRole[20];
+    printf(ANSI_BOLD ANSI_ITALIC);
+    printf("Enter the amount to withdraw: $");
+    scanf("%lf", &amount);
+    printf(ANSI_RESET);
 
-void readBalanceFromFile(); // Declare functions from account.c
-void saveBalanceToFile();
-double getCurrentBalance();
+    // Showing confirmation for deposit...
+    clearInputBuffer();
+    printf(ANSI_BOLD ANSI_ITALIC);
+    printf("\nAre you sure you want to withdraw $%.2f? Enter Y to confirm or press any key for main menu: ", amount);
+    scanf("%c", &confirmProceed);
+    printf(ANSI_RESET);
+    printf("\n");
 
-double getDailyWithdrawn();
-double getMonthlyWithdrawn();
+    if (confirmProceed != 'Y' && confirmProceed != 'y') {
+        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "Your withdraw transection has been cancelled!" ANSI_RESET);
+        return;
+    }
 
-int canWithdraw(double amount, const char *currentUserRole);
 
-int withdraw(double amount) {
     // Withdraw money from the account
     if (amount <= 0) {
         system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
-        return 0;
+        return;
     }
 
     if (currentBalance < amount) {
         system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance for withdrawing the amount of $%.2f.\n\n" ANSI_RESET, amount);
-        return 0;
+        return;
     }
 
     if (!canWithdraw(amount, currentUserRole)) {
-        return 0;
+        return;
     }
 
     // Update account balance and withdrawal limits
@@ -56,7 +61,23 @@ int withdraw(double amount) {
     // Generate withdraw statement
     addNewTransactionRecord(amount, currentUsername, currentUserRole, "Withdraw");
 
-    return 1;
+
+    // If user want to make another withdraw...
+    clearInputBuffer();
+    printf(ANSI_BOLD ANSI_ITALIC);
+    printf("To make another withdraw enter Y or press any key for main menu: ");
+    scanf("%c", &toContinue);
+    printf(ANSI_RESET);
+    printf("\n");
+
+    if (toContinue == 'Y' || toContinue == 'y') {
+        withdrawMoney(amount);
+    } else {
+        system("cls");
+        return;
+    }
+
+    return;
 }
 
 int canWithdraw(double amount, const char *currentUserRole) {
