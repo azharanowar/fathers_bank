@@ -18,7 +18,7 @@ void depositMoney() {
 
     if (amount <= 0) {
         system("cls");
-        printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
+        printf(ANSI_RED ANSI_ITALIC "\nInvalid deposit amount! Please enter a valid amount.\n\n" ANSI_RESET);
         depositMoney();
     }
 
@@ -66,6 +66,6 @@ void depositMoney() {
         depositMoney();
     } else {
         system("cls");
-        return;
+        showDashboardMenu();
     }
 }

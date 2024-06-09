@@ -77,3 +77,10 @@
 2024-06-09 15:05:25;Deposit;300.00;alrafi;Child;10690.00
 2024-06-09 15:05:35;Deposit;200.00;alrafi;Child;10890.00
 2024-06-09 15:06:01;TransBillPayment;1000.00;alrafi;Child;9890.00
+2024-06-09 15:56:42;Deposit;15.00;sijankhan;Child;9905.00
+2024-06-09 15:57:45;ElecBillPayment;45.00;sijankhan;Child;9860.00
+2024-06-09 16:48:17;Deposit;300.00;shayekh;Child;10160.00
+2024-06-09 16:50:17;Deposit;500.00;nasiruddin;Child;10660.00
+2024-06-09 16:51:16;Withdraw;300.00;nasiruddin;Child;10360.00
+2024-06-09 16:53:55;ElecBillPayment;400.00;nasiruddin;Child;9960.00
+2024-06-09 16:54:15;TransBillPayment;50.00;nasiruddin;Child;9910.00

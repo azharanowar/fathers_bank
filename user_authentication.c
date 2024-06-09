@@ -482,7 +482,7 @@ void findUserByID() {
     if (toContinue == 'Y' || toContinue == 'y') {
         findUserByID();
     } else {
-        return;
+        userLoginRegister();
     }
 }
 
@@ -556,7 +556,7 @@ void findUserByUsername() {
     if (toContinue == 'Y' || toContinue == 'y') {
         findUserByUsername();
     } else {
-        return;
+        userLoginRegister();
     }
 
 }
@@ -631,7 +631,7 @@ void findUserByFullName() {
     if (toContinue == 'Y' || toContinue == 'y') {
         findUserByFullName();
     } else {
-        return;
+        userLoginRegister();
     }
 }
 
@@ -705,7 +705,7 @@ void findUserByEmail() {
     if (toContinue == 'Y' || toContinue == 'y') {
         findUserByEmail();
     } else {
-        return;
+        userLoginRegister();
     }
 }
 

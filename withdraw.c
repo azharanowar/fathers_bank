@@ -39,7 +39,7 @@ void withdrawMoney() {
 
     if (confirmProceed != 'Y' && confirmProceed != 'y') {
         system("cls");
-        printf(ANSI_RED ANSI_ITALIC "Your withdraw transection has been cancelled!" ANSI_RESET);
+        printf(ANSI_RED ANSI_ITALIC "Your withdraw transection has been cancelled!\n" ANSI_RESET);
         showDashboardMenu();
     }
 
