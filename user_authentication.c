@@ -195,7 +195,7 @@ void registerNewUser() {
 
         printf(ANSI_GREEN ANSI_BOLD "\n\n\n" ANSI_RESET);
         system("cls");
-        printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "You have registered successfully! You can now login with your credentials.\n" ANSI_RESET);
+        printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "You have registered successfully! You can now login with your credentials." ANSI_RESET);
         for (int i = 1; i <= 5; i++) {
             printf(ANSI_GREEN ANSI_BOLD "." ANSI_RESET);
             fflush(stdout);

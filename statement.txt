@@ -84,3 +84,10 @@
 2024-06-09 16:51:16;Withdraw;300.00;nasiruddin;Child;10360.00
 2024-06-09 16:53:55;ElecBillPayment;400.00;nasiruddin;Child;9960.00
 2024-06-09 16:54:15;TransBillPayment;50.00;nasiruddin;Child;9910.00
+2024-06-09 20:13:00;Deposit;100.00;nabil;Child;10010.00
+2024-06-09 20:24:11;Deposit;100.00;nabil;Child;10110.00
+2024-06-09 20:36:14;Withdraw;100.00;nabil;Child;10010.00
+2024-06-09 20:46:16;ElecBillPayment;10.00;nabil;Child;10000.00
+2024-06-09 23:56:25;Deposit;130.00;azharanowar;Child;10130.00
+2024-06-09 23:56:48;Withdraw;130.00;azharanowar;Child;10000.00
+2024-06-09 23:57:00;Withdraw;350.00;azharanowar;Child;9650.00
