@@ -42,7 +42,9 @@ void showDashboardMenu() {
     printf(" 2. Deposit Money\n");
     printf(" 3. Withdraw Money\n");
     printf(" 4. Bill Payment\n");
-    strcmp(currentUserRole, "Father") == 0 ? printf(" 5. View Statement\n") : ' '; // Only show if user role is "Father" with ternary operator
+    printf(" 5. Go To User Page\n");
+    printf(" 6. View Statements\n");
+    // strcmp(currentUserRole, "Father") == 0 ? printf(" 6. View Statement\n") : ' '; // Only show if user role is "Father" with ternary operator
     printf(" 0. Logout\n\n");
     printf(ANSI_RESET);
 
@@ -82,6 +84,11 @@ void showDashboardMenu() {
             showDashboardMenu();
             break;
         case 5:
+            system("cls");
+            userLoginRegister();
+            showDashboardMenu();
+            break;
+        case 6:
             if (strcmp(currentUserRole, "Father") == 0) {
                 system("cls");
                 displayStatement();
@@ -90,6 +97,7 @@ void showDashboardMenu() {
                 printf(ANSI_RED ANSI_ITALIC "You do not have permission to view the statement! Only Father can view the statement.\n\n" ANSI_RESET);
                 showDashboardMenu();
             }
+
             break;
         case 0:
             userLogout();

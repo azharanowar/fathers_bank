@@ -17,7 +17,8 @@ void userLoginRegister() {
     printf(" 1. Login\n");
     printf(" 2. Register\n");
     printf(" 3. Find User\n");
-    printf(" 4. Update User\n");
+    printf(" 4. Delete User\n");
+
     printf(ANSI_RESET);
     printf("\n");
 
@@ -48,16 +49,30 @@ void userLoginRegister() {
 
         break;
     case 3:
+        system("cls");
+        if (strcmp(currentUserRole, "Father") != 0) {
+            printf(ANSI_RED ANSI_ITALIC "You do not have access to this function! It is dedicated for the Father only.\n\n" ANSI_RESET);
+            userLoginRegister();
+            break;
+        }
+
         findUser();
         userLoginRegister();
         break;
     case 4:
-        updateUser();
+        system("cls");
+        if (strcmp(currentUserRole, "Father") != 0) {
+            printf(ANSI_RED ANSI_ITALIC "You do not have access to this function! It is dedicated for the Father only.\n\n" ANSI_RESET);
+            userLoginRegister();
+            break;
+        }
+
+        deleteUserByID();
         userLoginRegister();
         break;
     default:
         system("cls");
-        printf(ANSI_RED ANSI_ITALIC "\nWrong menu selection!!! Please enter correct menu number, For login enter: 1 and for register enter: 2.\n" ANSI_RESET);
+        printf(ANSI_RED ANSI_ITALIC "\nWrong menu selection!!! Please enter correct menu number.\n" ANSI_RESET);
         userLoginRegister();
 
         break;
@@ -684,3 +699,60 @@ void findUserByEmail() {
     }
 }
 
+void deleteUserByID() {
+    int searchID;
+    char toContinue;
+
+    printf("\n");
+    printf(ANSI_YELLOW ANSI_ITALIC "Enter user ID to delete: " ANSI_RESET);
+    scanf("%d", &searchID);
+    fflush(stdin);
+
+    FILE *file = fopen(userFile, "r");
+    if (file == NULL) {
+        printf("Error opening user file.\n");
+        return;
+    }
+
+    FILE *tempFile = fopen("temp.txt", "w");
+    if (tempFile == NULL) {
+        printf("Error creating temporary file.\n");
+        fclose(file);
+        return;
+    }
+
+    char line[100];
+    int found = 0;
+
+    while (fgets(line, sizeof(line), file) != NULL) {
+        int userID;
+        sscanf(line, "%d;", &userID);
+
+        if (userID == searchID) {
+            found = 1;
+            printf(ANSI_GREEN "User found:\n%s\n" ANSI_RESET, line);
+            printf(ANSI_YELLOW ANSI_ITALIC "Are you sure you want to delete this user? (Y/N): " ANSI_RESET);
+            scanf(" %c", &toContinue);
+            fflush(stdin);
+
+            if (toContinue == 'Y' || toContinue == 'y') {
+                printf(ANSI_GREEN ANSI_BOLD "\n\nUser deleted successfully!\n" ANSI_RESET);
+                continue;
+            } else {
+                printf( ANSI_RED "Deletion cancelled.\n" ANSI_RESET);
+            }
+        }
+
+        fprintf(tempFile, "%s", line);
+    }
+
+    fclose(file);
+    fclose(tempFile);
+
+    remove(userFile);
+    rename("temp.txt", userFile);
+
+    if (!found) {
+        printf("User not found.\n");
+    }
+}

@@ -4,10 +4,8 @@
 4;Al-Rafi Azad;alrafi@gmailc.com;alrafi;hsyhmp;Child
 5;Taohid Uddin;taohid@gmail.com;taohid;ahvopk;Father
 6;test;test@gmail.com;test;ooooh;Father
-7;Nurbak;nurbak@gmail.com;nurbak;ubyihr;Father
 8;Nurbek;nurbek@gmail.com;nurbek;ubyilr;Father
 9;Ranga Miya;rangamiyabanga@gmail.com;rangamiya;yhunhtpfh;Child
-10;z;z;z;g;Father
 11;Ata Miya;atamiya@gmail.com;atamiya;hahtpfh;Child
 12;Md Jainal Abedin;jainalabedin@gmail.com;jainal;qhpuhs;Father
 13;Nasir Uddin Mahmood;nasiruddin@gmail.com;nasiruddin;uhzpy;Child

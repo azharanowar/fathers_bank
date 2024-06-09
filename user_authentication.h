@@ -29,6 +29,6 @@ void findUserByID();;
 void findUserByUsername();;
 void findUserByFullName();;
 void findUserByEmail();;
-void updateUser();
+void deleteUserByID();
 
 #endif // USER_AUTHENTICATION_H
