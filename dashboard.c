@@ -19,7 +19,10 @@ int main() {
     printf(ANSI_BOLD ANSI_BG_BLUE " **** WELCOME TO \"FATHER\'S BANK\" **** " ANSI_RESET);
     printf("\n\n");
 
-    userLoginRegister();
+    if (currentUserId == -1) {
+        userLoginRegister();
+    }
+    
     if (currentUserId != -1) {
         printf(ANSI_BOLD ANSI_BG_BLUE " Welcome back, %s! " ANSI_RESET, currentUserFullName);
         printf("\n\n");
@@ -42,8 +45,8 @@ void showDashboardMenu() {
     printf(" 2. Deposit Money\n");
     printf(" 3. Withdraw Money\n");
     printf(" 4. Bill Payment\n");
-    printf(" 5. Go To User Page\n");
-    printf(" 6. View Statements\n");
+    printf(" 5. View Statements\n");
+    printf(" 6. Go To User Page\n");
     // strcmp(currentUserRole, "Father") == 0 ? printf(" 6. View Statement\n") : ' '; // Only show if user role is "Father" with ternary operator
     printf(" 0. Logout\n\n");
     printf(ANSI_RESET);
@@ -84,20 +87,21 @@ void showDashboardMenu() {
             showDashboardMenu();
             break;
         case 5:
-            system("cls");
-            userLoginRegister();
-            showDashboardMenu();
-            break;
-        case 6:
             if (strcmp(currentUserRole, "Father") == 0) {
                 system("cls");
                 displayStatement();
                 showDashboardMenu();
             } else {
+                system("cls");
                 printf(ANSI_RED ANSI_ITALIC "You do not have permission to view the statement! Only Father can view the statement.\n\n" ANSI_RESET);
                 showDashboardMenu();
             }
 
+            break;
+        case 6:
+            system("cls");
+            userLoginRegister();
+            showDashboardMenu();
             break;
         case 0:
             userLogout();

@@ -10,6 +10,7 @@ char currentUserRole[20] = "";
 const char userFile[] = "users.txt";
 
 void userLoginRegister() {
+
     int userChoice;
 
     printf(ANSI_BOLD ANSI_BG_WHITE "\t **** CHOOSE MENU FROM BELOW **** " ANSI_RESET); printf("\n\n");
@@ -18,6 +19,7 @@ void userLoginRegister() {
     printf(" 2. Register\n");
     printf(" 3. Find User\n");
     printf(" 4. Delete User\n");
+    printf(" 0. Go to Dashboard\n");
 
     printf(ANSI_RESET);
     printf("\n");
@@ -69,6 +71,14 @@ void userLoginRegister() {
 
         deleteUserByID();
         userLoginRegister();
+        break;
+    case 0:
+        system("cls");
+        if (currentUserId != -1) {
+            main();
+        } else {
+            userLoginRegister();
+        }
         break;
     default:
         system("cls");
@@ -166,7 +176,7 @@ void registerNewUser() {
             printf("2. Child\n");
             printf("Enter your choice: ");
             scanf("%d", &roleChoice);
-            clearInputBuffer();
+            clearInputBuffer(); // Clear input buffer after reading integer
 
             if (roleChoice == 1) {
                 strcpy(newUser.userRole, "Father");
@@ -217,7 +227,7 @@ void userLogin() {
 
     if (userID != -1) {
         system("cls");
-        printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "\nYou have logged in successfully! You will be redirected to your DASHBOARD shortly." ANSI_RESET);
+        printf(ANSI_GREEN ANSI_BOLD ANSI_ITALIC "\nYou have logged in successfully! You will be redirected to your DASHBOARD shortly.\n" ANSI_RESET);
         for (int i = 1; i <= 5; i++) {
             printf(ANSI_GREEN ANSI_BOLD "." ANSI_RESET);
             fflush(stdout);
@@ -704,7 +714,7 @@ void deleteUserByID() {
     char toContinue;
 
     printf("\n");
-    printf(ANSI_YELLOW ANSI_ITALIC "Enter user ID to delete: " ANSI_RESET);
+    printf(ANSI_BOLD ANSI_ITALIC "Enter user ID to delete: " ANSI_RESET);
     scanf("%d", &searchID);
     fflush(stdin);
 
@@ -731,15 +741,16 @@ void deleteUserByID() {
         if (userID == searchID) {
             found = 1;
             printf(ANSI_GREEN "User found:\n%s\n" ANSI_RESET, line);
-            printf(ANSI_YELLOW ANSI_ITALIC "Are you sure you want to delete this user? (Y/N): " ANSI_RESET);
+            printf(ANSI_BOLD ANSI_ITALIC "Are you sure you want to delete this user? (Y/N): " ANSI_RESET);
             scanf(" %c", &toContinue);
             fflush(stdin);
 
             if (toContinue == 'Y' || toContinue == 'y') {
-                printf(ANSI_GREEN ANSI_BOLD "\n\nUser deleted successfully!\n" ANSI_RESET);
+                system("cls");
+                printf(ANSI_GREEN ANSI_BOLD "\n\nUser deleted successfully!\n\n" ANSI_RESET);
                 continue;
             } else {
-                printf( ANSI_RED "Deletion cancelled.\n" ANSI_RESET);
+                printf( ANSI_RED "\nUser deletion cancelled.\n\n" ANSI_RESET);
             }
         }
 

@@ -11,6 +11,24 @@ void withdrawMoney() {
     scanf("%lf", &amount);
     printf(ANSI_RESET);
 
+
+    // Withdraw money from the account
+    if (amount <= 0) {
+        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
+        withdrawMoney();
+    }
+
+    if (currentBalance < amount) {
+        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance for withdrawing the amount of $%.2f.\n\n" ANSI_RESET, amount);
+        withdrawMoney();
+    }
+
+    if (!canWithdraw(amount, currentUserRole)) {
+        showDashboardMenu();
+    }
+
     // Showing confirmation for deposit...
     clearInputBuffer();
     printf(ANSI_BOLD ANSI_ITALIC);
@@ -22,25 +40,7 @@ void withdrawMoney() {
     if (confirmProceed != 'Y' && confirmProceed != 'y') {
         system("cls");
         printf(ANSI_RED ANSI_ITALIC "Your withdraw transection has been cancelled!" ANSI_RESET);
-        return;
-    }
-
-
-    // Withdraw money from the account
-    if (amount <= 0) {
-        system("cls");
-        printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
-        return;
-    }
-
-    if (currentBalance < amount) {
-        system("cls");
-        printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance for withdrawing the amount of $%.2f.\n\n" ANSI_RESET, amount);
-        return;
-    }
-
-    if (!canWithdraw(amount, currentUserRole)) {
-        return;
+        showDashboardMenu();
     }
 
     // Update account balance and withdrawal limits
@@ -74,10 +74,10 @@ void withdrawMoney() {
         withdrawMoney(amount);
     } else {
         system("cls");
-        return;
+        showDashboardMenu();
     }
 
-    return;
+    showDashboardMenu();
 }
 
 int canWithdraw(double amount, const char *currentUserRole) {

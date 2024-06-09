@@ -71,3 +71,9 @@
 2024-06-08 00:36:44;Deposit;500.00;azharanowar;Child;9390.00
 2024-06-08 00:45:30;Deposit;500.00;sijankhan;Child;9890.00
 2024-06-08 00:48:44;Deposit;300.00;sijankhan;Child;10190.00
+2024-06-09 13:31:01;Deposit;200.00;azharanowar;Child;10390.00
+2024-06-09 13:32:40;Deposit;300.00;shayekh;Child;10690.00
+2024-06-09 14:26:33;Withdraw;300.00;sijankhan;Child;10390.00
+2024-06-09 15:05:25;Deposit;300.00;alrafi;Child;10690.00
+2024-06-09 15:05:35;Deposit;200.00;alrafi;Child;10890.00
+2024-06-09 15:06:01;TransBillPayment;1000.00;alrafi;Child;9890.00

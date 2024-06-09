@@ -17,6 +17,8 @@ extern double currentBalance;
 extern char currentUsername[20];
 extern char currentUserRole[20];
 
+extern void showDashboardMenu();
+
 void readBalanceFromFile(); // Declare functions from account.c
 void saveBalanceToFile();
 double getCurrentBalance();

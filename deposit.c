@@ -11,19 +11,6 @@ void depositMoney() {
     scanf("%lf", &amount);
     printf(ANSI_RESET);
 
-    // Showing confirmation for deposit...
-    clearInputBuffer();
-    printf(ANSI_BOLD ANSI_ITALIC);
-    printf("\nAre you sure you want to deposit  $%.2f? Enter Y to confirm or press any key for main menu: ", amount);
-    scanf("%c", &confirmProceed);
-    printf(ANSI_RESET);
-    printf("\n");
-
-    if (confirmProceed != 'Y' && confirmProceed != 'y') {
-        system("cls");
-        printf(ANSI_RED ANSI_ITALIC "Your deposit transection has been cancelled!\n\n" ANSI_RESET);
-        return;
-    }
 
     if (!checkStatementFile()) {
         checkStatementFile();
@@ -32,7 +19,21 @@ void depositMoney() {
     if (amount <= 0) {
         system("cls");
         printf(ANSI_RED ANSI_ITALIC "\nInvalid withdrawal amount! Please enter a valid amount.\n\n" ANSI_RESET);
-        return;
+        depositMoney();
+    }
+
+    // Showing confirmation for deposit...
+    clearInputBuffer();
+    printf(ANSI_BOLD ANSI_ITALIC);
+    printf("\nAre you sure you want to deposit $%.2f? (Enter Y to confirm or press any key for main menu): ", amount);
+    scanf("%c", &confirmProceed);
+    printf(ANSI_RESET);
+    printf("\n");
+
+    if (confirmProceed != 'Y' && confirmProceed != 'y') {
+        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "Your deposit transection has been cancelled!\n\n" ANSI_RESET);
+        showDashboardMenu();
     }
     
     currentBalance += amount; // currentBalance = currentBalance + amount
@@ -56,7 +57,7 @@ void depositMoney() {
     // If user want to make another deposit...
     clearInputBuffer();
     printf(ANSI_BOLD ANSI_ITALIC);
-    printf("To make another deposit enter Y or press any key to go for main menu: ");
+    printf("If you want to make another deposit, Enter Y or press any key to go for main menu: ");
     scanf("%c", &toContinue);
     printf(ANSI_RESET);
     printf("\n");

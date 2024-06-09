@@ -2,11 +2,14 @@
 #define USER_AUTHENTICATION_H
 
 
-// Session variables
+// // Session variables
 extern int currentUserId;
 extern char currentUsername[20];
 extern char currentUserFullName[50];
 extern char currentUserRole[20];
+
+extern int main();
+extern void showDashboardMenu();
 
 typedef struct {
     int id;
