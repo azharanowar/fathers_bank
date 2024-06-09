@@ -1,4 +1,4 @@
-2024-05-21 01:26:26;Deposit;1000.00;UsernameNotApplicable;Father;1000.00
+2024-05-21 01:26:26;Deposit;1000.00;DepositedByFather;Father;1000.00
 2024-05-21 01:26:26;Deposit;2000.00;shayekh;Child;3000.00
 2024-05-21 01:26:54;Withdraw;200.00;shayekh;Child;2800.00
 2024-05-22 00:23:25;Withdraw;500.00;azharanowar;Child;2300.00

@@ -2,9 +2,6 @@
 #ifndef WITHDRAW_H
 #define WITHDRAW_H
 
-#include "withdraw.h"
-#include "statement.c"
-
 #define MAX_WITHDRAW_AMOUNT_DAILY 1000
 #define MAX_WITHDRAW_AMOUNT_MONTHLY 5000
 #define FATHER_ROLE "Father"

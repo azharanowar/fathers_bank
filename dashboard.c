@@ -11,6 +11,7 @@
 #include "deposit.c"
 #include "withdraw.c"
 #include "bill_payments.c"
+#include "statement.c"
 
 void showDashboardMenu();
 

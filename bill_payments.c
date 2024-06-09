@@ -1,7 +1,8 @@
 #include "bill_payments.h"
 
 void billPayments() {
-    printf(ANSI_BG_WHITE ANSI_BOLD "\t **** CHOOSE MENU FROM BELOW **** "ANSI_RESET); printf("\n\n");
+    printf(ANSI_BG_WHITE ANSI_BOLD "\t **** CHOOSE MENU FROM BELOW **** " ANSI_RESET); 
+    printf("\n\n");
 
     printf(ANSI_BOLD);
     printf(" 1. Pay Electricity Bill\n");
@@ -59,7 +60,7 @@ void payElectricityBill() {
         printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance for paying bill of the amount $%.2f.\n\n" ANSI_RESET, amount);
         return;
     } else {
-        currentBalance -= amount;
+        currentBalance -= amount; // currentBalance = currentBalance - amount;
         saveBalanceToFile();
 
         // Print withdrawal confirmation

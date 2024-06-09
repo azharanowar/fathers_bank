@@ -53,7 +53,7 @@ int checkStatementFile() {
         struct tm *currentTime = localtime(&now);
         char dateTime[20];
         strftime(dateTime, sizeof(dateTime), "%Y-%m-%d %H:%M:%S", currentTime);
-        fprintf(file, "%s;Deposit;%.2f;UsernameNotApplicable;Father;%.2f\n", dateTime, initialBalance, initialBalance);
+        fprintf(file, "%s;Deposit;%.2f;DepositedByFather;Father;%.2f\n", dateTime, initialBalance, initialBalance);
 
         fclose(file); // Close the file after creating it
         return 1; // Return success
@@ -65,6 +65,7 @@ int checkStatementFile() {
 
 void displayStatement() {
 
+    // Checking role == father or not...
     if (strcmp(currentUserRole, "Father") != 0) {
         return;
     }
@@ -106,11 +107,13 @@ void displayStatement() {
 
     // Read and print each transaction
     while (fgets(line, sizeof(line), file)) {
+        // Line:-      2024-05-21 01:26:26;Deposit;2000.00;shayekh;Child;3000.00
         char *token = strtok(line, ";");
         char dateTime[dateTimeWidth + 1], type[typeWidth + 1], user[userWidth + 1], role[roleWidth + 1];
         double amount, balance;
 
-        if (token) strncpy(dateTime, token, dateTimeWidth); dateTime[dateTimeWidth] = '\0';
+        if (token) strncpy(dateTime, token, dateTimeWidth); 
+        dateTime[dateTimeWidth] = '\0'; // dateTime[21] = \0 means end at last char of array
         token = strtok(NULL, ";");
         if (token) strncpy(type, token, typeWidth); type[typeWidth] = '\0';
         token = strtok(NULL, ";");
