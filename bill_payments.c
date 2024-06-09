@@ -37,7 +37,7 @@ void billPayments() {
         default:
             system("cls");
             printf(ANSI_RED ANSI_ITALIC "Wrong menu choice! Please enter 1-3 or 0 to exit.\n\n" ANSI_RESET);
-            billPayments();
+            showDashboardMenu();
             break;
     }
 }
