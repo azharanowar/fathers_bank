@@ -12,7 +12,7 @@ const char userFile[] = "users.txt";
 void userLoginRegister() {
     int userChoice;
 
-    printf(ANSI_BOLD ANSI_BG_WHITE "\n\t **** CHOOSE MENU FROM BELOW **** " ANSI_RESET); printf("\n\n");
+    printf(ANSI_BOLD ANSI_BG_WHITE "\t **** CHOOSE MENU FROM BELOW **** " ANSI_RESET); printf("\n\n");
     printf(ANSI_BOLD);
     printf(" 1. Login\n");
     printf(" 2. Register\n");
@@ -49,12 +49,11 @@ void userLoginRegister() {
         break;
     case 3:
         findUser();
-
+        userLoginRegister();
         break;
-
     case 4:
         updateUser();
-
+        userLoginRegister();
         break;
     default:
         system("cls");
@@ -344,137 +343,62 @@ void findUser() {
     char searchString[50];
     char toContinue;
 
-    do {
-        printf("\n");
-        printf(ANSI_BOLD ANSI_BG_WHITE " **** FIND USER **** " ANSI_RESET);
-        printf("\n\n");
+    printf("\n");
+    printf(ANSI_BOLD ANSI_BG_WHITE " **** FIND USER **** " ANSI_RESET);
+    printf("\n\n");
 
-        printf(ANSI_BOLD);
-        printf("Choose search option:\n");
-        printf("1. By ID\n");
-        printf("2. By Name\n");
-        printf("3. By Email\n");
-        printf("4. By Username\n");
-        printf("Enter your choice: ");
-        scanf("%d", &searchOption);
-        clearInputBuffer(); // Clear input buffer after scanf
-        printf(ANSI_RESET);
+    printf(ANSI_BOLD);
+    printf("Choose search option:\n");
+    printf("1. By ID\n");
+    printf("2. By Username\n");
+    printf("3. By Full Name\n");
+    printf("4. By Email\n");
+    printf("Enter your choice: ");
 
-        printf("\n");
-        printf(ANSI_BOLD ANSI_BG_WHITE " **** SEARCH USER **** " ANSI_RESET);
-        printf("\n\n");
+    scanf("%d", &searchOption);
+    // clearInputBuffer(); // Clear input buffer after scanf
+    printf(ANSI_RESET);
 
-        FILE *file = fopen(userFile, "r");
-        if (file == NULL) {
-            printf(ANSI_RED "Error opening user file.\n" ANSI_RESET);
-            return;
-        }
+    printf("\n");
+    printf(ANSI_BOLD ANSI_BG_WHITE " **** SEARCH USER **** " ANSI_RESET);
+    printf("\n\n");
 
-        int searchID;
-        int found = 0;
-        char line[100];
-        while (fgets(line, sizeof(line), file) != NULL) {
-            int userID;
-            char fullName[50], email[50], username[20];
+    switch (searchOption) {
+        case 1:
+            findUserByID();
+            break;
+        case 2:
+            findUserByUsername();
+            break;
+        case 3:
+            findUserByFullName();
+            break;
+        case 4:
+            findUserByEmail();
+            break;
+        default:
+            printf(ANSI_RED "Invalid search option.\n" ANSI_RESET);
+            findUser();
+            break;
+    }
 
-            // Tokenizing the line to extract individual fields
-            char *token = strtok(line, ";");
-            userID = atoi(token);
-
-            token = strtok(NULL, ";");
-            strcpy(fullName, token);
-
-            token = strtok(NULL, ";");
-            strcpy(email, token);
-
-            token = strtok(NULL, ";");
-            strcpy(username, token);
-
-            // Removing newline character from username if present
-            username[strcspn(username, "\n")] = '\0';
-
-            switch (searchOption) {
-                case 1:
-                    printf("Enter user ID to search: ");
-                    scanf("%d", &searchID);
-                    clearInputBuffer(); // Clear input buffer after scanf
-                    if (searchID == userID) {
-                        found = 1;
-                    }
-                    break;
-                case 2:
-                    printf("Enter full name to search: ");
-                    fgets(searchString, sizeof(searchString), stdin);
-                    searchString[strcspn(searchString, "\n")] = '\0'; // Remove newline character
-                    if (strstr(fullName, searchString) != NULL) {
-                        found = 1;
-                    }
-                    break;
-                case 3:
-                    printf("Enter email to search: ");
-                    fgets(searchString, sizeof(searchString), stdin);
-                    searchString[strcspn(searchString, "\n")] = '\0'; // Remove newline character
-                    if (strstr(email, searchString) != NULL) {
-                        found = 1;
-                    }
-                    break;
-                case 4:
-                    printf("Enter username to search: ");
-                    fgets(searchString, sizeof(searchString), stdin);
-                    searchString[strcspn(searchString, "\n")] = '\0'; // Remove newline character
-                    if (strstr(username, searchString) != NULL) {
-                        found = 1;
-                    }
-                    break;
-                default:
-                    printf(ANSI_RED "Invalid search option.\n" ANSI_RESET);
-                    return;
-            }
-
-            if (found) {
-                printf("User found:\n");
-                printf("ID: %d\n", userID);
-                printf("Full Name: %s\n", fullName);
-                printf("Email: %s\n", email);
-                printf("Username: %s\n", username);
-                found = 0; // Reset found flag for potential multiple matches
-            }
-        }
-
-        fclose(file);
-
-        if (!found) {
-            printf(ANSI_RED "User not found.\n" ANSI_RESET);
-        }
-
-        printf("\n");
-        printf(ANSI_BOLD ANSI_ITALIC);
-        printf("Do you want to search again by ID? (Y/y for yes, any other key for main menu): ");
-        scanf(" %c", &toContinue);
-        clearInputBuffer(); // Clear input buffer after scanf
-        printf(ANSI_RESET);
-        printf("\n");
-    } while (toContinue == 'Y' || toContinue == 'y');
+    return;
 }
 
 
 
 
-
-
-
-void updateUser() {
-    
-    int userID;
-    char choice;
-    char newValue[50];
+void findUserByID() {
+    int searchID;
+    char toContinue;
 
     printf("\n");
-    printf(ANSI_BOLD ANSI_BG_WHITE " **** UPDATE USER **** " ANSI_RESET);
+    printf(ANSI_BOLD ANSI_ITALIC ANSI_BLUE " **** SEARCH USER BY ID **** " ANSI_RESET);
     printf("\n\n");
 
-    printf("Enter user ID to update: ");
-    scanf("%d", &userID);
+    printf("Enter user ID to search: ");
+    scanf("%d", &searchID);
+    clearInputBuffer(); // Clear input buffer after scanf
 
     FILE *file = fopen(userFile, "r");
     if (file == NULL) {
@@ -482,74 +406,281 @@ void updateUser() {
         return;
     }
 
+    int found = 0;
     char line[100];
     while (fgets(line, sizeof(line), file) != NULL) {
-        int id;
-        char fullName[50], email[50], username[20], password[20], userRole[20];
+        int userID;
+        char fullName[50], email[50], username[20];
 
-        sscanf(line, "%d;%[^;];%[^;];%[^;];%[^;];%[^\n]", &id, fullName, email, username, password, userRole);
+        // Tokenizing the line to extract individual fields
+        char *token = strtok(line, ";");
+        userID = atoi(token);
 
-        if (id == userID) {
-            printf("\nCurrent User Information:\n");
-            printf("ID: %d\n", id);
-            printf("1. Full Name: %s\n", fullName);
-            printf("2. Email: %s\n", email);
-            printf("3. Username: %s\n", username);
-            printf("4. Password: ********\n");
-            printf("5. Role: %s\n", userRole);
+        token = strtok(NULL, ";");
+        strcpy(fullName, token);
 
-            printf("\nEnter the number of the field to update: ");
-            scanf(" %c", &choice);
+        token = strtok(NULL, ";");
+        strcpy(email, token);
 
-            switch (choice) {
-                case '1':
-                    printf("Enter new full name: ");
-                    scanf("%s", newValue);
-                    strcpy(fullName, newValue);
-                    break;
-                case '2':
-                    printf("Enter new email: ");
-                    scanf("%s", newValue);
-                    strcpy(email, newValue);
-                    break;
-                case '3':
-                    printf("Enter new username: ");
-                    scanf("%s", newValue);
-                    strcpy(username, newValue);
-                    break;
-                case '4':
-                    printf("Enter new password: ");
-                    scanf("%s", newValue);
-                    // Optionally encrypt the new password here if needed
-                    strcpy(password, newValue);
-                    break;
-                case '5':
-                    printf("Enter new role: ");
-                    scanf("%s", newValue);
-                    strcpy(userRole, newValue);
-                    break;
-                default:
-                    printf(ANSI_RED "Invalid choice.\n" ANSI_RESET);
-                    break;
-            }
+        token = strtok(NULL, ";");
+        strcpy(username, token);
 
-            // Write updated information back to file
-            fclose(file);
-            file = fopen(userFile, "r+");
-            if (file == NULL) {
-                printf(ANSI_RED "Error opening user file for writing.\n" ANSI_RESET);
-                return;
-            }
+        // Removing newline character from username if present
+        username[strcspn(username, "\n")] = '\0';
 
-            fprintf(file, "%d;%s;%s;%s;%s;%s\n", id, fullName, email, username, password, userRole);
-            fclose(file);
-
-            printf(ANSI_GREEN "User information updated successfully.\n" ANSI_RESET);
-            return;
+        if (userID == searchID) {
+            printf(ANSI_BOLD ANSI_GREEN "\nUser found:\n" ANSI_RESET);
+            printf(ANSI_BOLD "------------------------------\n" ANSI_RESET);
+            printf(ANSI_BOLD "ID: " ANSI_RESET ANSI_CYAN "%d\n" ANSI_RESET, userID);
+            printf(ANSI_BOLD "Full Name: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, fullName);
+            printf(ANSI_BOLD "Email: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, email);
+            printf(ANSI_BOLD "Username: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, username);
+            printf(ANSI_BOLD "------------------------------\n" ANSI_RESET);
+            found = 1;
+            break; // Assuming we want only one match
         }
     }
 
     fclose(file);
-    printf(ANSI_RED "User with ID %d not found.\n" ANSI_RESET, userID);
+
+    if (!found) {
+        printf(ANSI_RED "User not found.\n" ANSI_RESET);
+    }
+
+    printf("\n");
+    printf(ANSI_ITALIC);
+    printf("Do you want to search again by ID? (Enter Y for yes or any other key for main menu): ");
+    scanf(" %c", &toContinue);
+    printf(ANSI_RESET);
+    printf("\n");
+
+    if (toContinue == 'Y' || toContinue == 'y') {
+        findUserByID();
+    } else {
+        return;
+    }
+}
+
+void findUserByUsername() {
+    char searchString[50];
+    char toContinue;
+
+    printf("\n");
+    printf(ANSI_BOLD ANSI_ITALIC ANSI_BLUE " **** SEARCH USER BY USERNAME **** " ANSI_RESET);
+    printf("\n\n");
+
+    printf("Enter username to search: ");
+    clearInputBuffer();
+    fgets(searchString, sizeof(searchString), stdin);
+    searchString[strcspn(searchString, "\n")] = '\0'; // Remove newline character
+
+    FILE *file = fopen(userFile, "r");
+    if (file == NULL) {
+        printf(ANSI_RED "Error opening user file.\n" ANSI_RESET);
+        return;
+    }
+
+    int found = 0;
+    char line[100];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        int userID;
+        char fullName[50], email[50], username[20];
+
+        // Tokenizing the line to extract individual fields
+        char *token = strtok(line, ";");
+        userID = atoi(token);
+
+        token = strtok(NULL, ";");
+        strcpy(fullName, token);
+
+        token = strtok(NULL, ";");
+        strcpy(email, token);
+
+        token = strtok(NULL, ";");
+        strcpy(username, token);
+
+        // Removing newline character from username if present
+        username[strcspn(username, "\n")] = '\0';
+
+        if (strcmp(username, searchString) == 0) {
+            printf(ANSI_BOLD ANSI_GREEN "\nUser found:\n" ANSI_RESET);
+            printf(ANSI_BOLD "------------------------------\n" ANSI_RESET);
+            printf(ANSI_BOLD "ID: " ANSI_RESET ANSI_CYAN "%d\n" ANSI_RESET, userID);
+            printf(ANSI_BOLD "Full Name: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, fullName);
+            printf(ANSI_BOLD "Email: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, email);
+            printf(ANSI_BOLD "Username: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, username);
+            printf(ANSI_BOLD "------------------------------\n" ANSI_RESET);
+            found = 1;
+            break; // Assuming we want only one match
+        }
+    }
+
+    fclose(file);
+
+    if (!found) {
+        printf(ANSI_RED "User not found.\n" ANSI_RESET);
+    }
+
+    printf("\n");
+    printf(ANSI_ITALIC);
+    printf("Do you want to search again by Username? (Enter Y for yes or any other key for main menu): ");
+    scanf(" %c", &toContinue);
+    printf(ANSI_RESET);
+    printf("\n");
+
+    if (toContinue == 'Y' || toContinue == 'y') {
+        findUserByUsername();
+    } else {
+        return;
+    }
+
+}
+
+void findUserByFullName() {
+    char searchString[50];
+    char toContinue;
+
+    printf("\n");
+    printf(ANSI_BOLD ANSI_ITALIC ANSI_BLUE " **** SEARCH USER BY FULL NAME **** " ANSI_RESET);
+    printf("\n\n");
+
+    printf("Enter full name to search: ");
+    clearInputBuffer();
+    fgets(searchString, sizeof(searchString), stdin);
+    searchString[strcspn(searchString, "\n")] = '\0'; // Remove newline character
+
+    FILE *file = fopen(userFile, "r");
+    if (file == NULL) {
+        printf(ANSI_RED "Error opening user file.\n" ANSI_RESET);
+        return;
+    }
+
+    int found = 0;
+    char line[100];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        int userID;
+        char fullName[50], email[50], username[20];
+
+        // Tokenizing the line to extract individual fields
+        char *token = strtok(line, ";");
+        userID = atoi(token);
+
+        token = strtok(NULL, ";");
+        strcpy(fullName, token);
+
+        token = strtok(NULL, ";");
+        strcpy(email, token);
+
+        token = strtok(NULL, ";");
+        strcpy(username, token);
+
+        // Removing newline character from username if present
+        username[strcspn(username, "\n")] = '\0';
+
+        if (strcmp(fullName, searchString) == 0) {
+            printf(ANSI_BOLD ANSI_GREEN "\nUser found:\n" ANSI_RESET);
+            printf(ANSI_BOLD "------------------------------\n" ANSI_RESET);
+            printf(ANSI_BOLD "ID: " ANSI_RESET ANSI_CYAN "%d\n" ANSI_RESET, userID);
+            printf(ANSI_BOLD "Full Name: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, fullName);
+            printf(ANSI_BOLD "Email: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, email);
+            printf(ANSI_BOLD "Username: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, username);
+            printf(ANSI_BOLD "------------------------------\n" ANSI_RESET);
+            found = 1;
+            break; // Assuming we want only one match
+        }
+    }
+
+    fclose(file);
+
+    if (!found) {
+        printf(ANSI_RED "User not found.\n" ANSI_RESET);
+    }
+
+    printf("\n");
+    printf(ANSI_ITALIC);
+    printf("Do you want to search again by Full Name? (Enter Y for yes or any other key for main menu): ");
+    scanf(" %c", &toContinue);
+    printf(ANSI_RESET);
+    printf("\n");
+
+    if (toContinue == 'Y' || toContinue == 'y') {
+        findUserByFullName();
+    } else {
+        return;
+    }
+}
+
+void findUserByEmail() {
+    char searchString[50];
+    char toContinue;
+
+    printf("\n");
+    printf(ANSI_BOLD ANSI_ITALIC ANSI_BLUE " **** SEARCH USER BY EMAIL **** " ANSI_RESET);
+    printf("\n\n");
+
+    printf("Enter email to search: ");
+    clearInputBuffer();
+    fgets(searchString, sizeof(searchString), stdin);
+    searchString[strcspn(searchString, "\n")] = '\0'; // Remove newline character
+
+    FILE *file = fopen(userFile, "r");
+    if (file == NULL) {
+        printf(ANSI_RED "Error opening user file.\n" ANSI_RESET);
+        return;
+    }
+
+    int found = 0;
+    char line[100];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        int userID;
+        char fullName[50], email[50], username[20];
+
+        // Tokenizing the line to extract individual fields
+        char *token = strtok(line, ";");
+        userID = atoi(token);
+
+        token = strtok(NULL, ";");
+        strcpy(fullName, token);
+
+        token = strtok(NULL, ";");
+        strcpy(email, token);
+
+        token = strtok(NULL, ";");
+        strcpy(username, token);
+
+        // Removing newline character from username if present
+        username[strcspn(username, "\n")] = '\0';
+
+        if (strcmp(email, searchString) == 0) {
+            printf(ANSI_BOLD ANSI_GREEN "\nUser found:\n" ANSI_RESET);
+            printf(ANSI_BOLD "------------------------------\n" ANSI_RESET);
+            printf(ANSI_BOLD "ID: " ANSI_RESET ANSI_CYAN "%d\n" ANSI_RESET, userID);
+            printf(ANSI_BOLD "Full Name: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, fullName);
+            printf(ANSI_BOLD "Email: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, email);
+            printf(ANSI_BOLD "Username: " ANSI_RESET ANSI_CYAN "%s\n" ANSI_RESET, username);
+            printf(ANSI_BOLD "------------------------------\n" ANSI_RESET);
+            found = 1;
+            break; // Assuming we want only one match
+        }
+    }
+
+    fclose(file);
+
+    if (!found) {
+        printf(ANSI_RED "User not found.\n" ANSI_RESET);
+    }
+
+    printf("\n");
+    printf(ANSI_ITALIC);
+    printf("Do you want to search again by Email? (Enter Y for yes or any other key for main menu): ");
+    scanf(" %c", &toContinue);
+    printf(ANSI_RESET);
+    printf("\n");
+
+    if (toContinue == 'Y' || toContinue == 'y') {
+        findUserByEmail();
+    } else {
+        return;
+    }
 }
 

@@ -74,6 +74,7 @@ void showDashboardMenu() {
         case 3:
             system("cls");
             withdrawMoney();
+            showDashboardMenu();
             break;
         case 4:
             system("cls");

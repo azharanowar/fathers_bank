@@ -68,3 +68,6 @@
 2024-06-07 23:19:24;Deposit;500.00;sijankhan;Child;8890.00
 2024-06-07 23:19:44;Deposit;500.00;sijankhan;Child;9390.00
 2024-06-07 23:38:36;Withdraw;500.00;sijankhan;Child;8890.00
+2024-06-08 00:36:44;Deposit;500.00;azharanowar;Child;9390.00
+2024-06-08 00:45:30;Deposit;500.00;sijankhan;Child;9890.00
+2024-06-08 00:48:44;Deposit;300.00;sijankhan;Child;10190.00

@@ -1,12 +1,5 @@
 #include "statement.h"
-
-extern double currentBalance;
-extern char currentUsername[20]; 
-extern char currentUserRole[20];
-
-extern void saveBalanceToFile();
-extern void addNewTransactionRecord(double amount, const char *username, const char *userRole, const char *transactionType);
-
+#include "deposit.h"
 double amount;
 void depositMoney() {
 
@@ -42,7 +35,7 @@ void depositMoney() {
         return;
     }
     
-    currentBalance += amount;
+    currentBalance += amount; // currentBalance = currentBalance + amount
     saveBalanceToFile();
     addNewTransactionRecord(amount, currentUsername, currentUserRole, "Deposit");
 

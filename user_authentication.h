@@ -25,6 +25,10 @@ void saveUserData(const char *fullName, const char *email, const char *username,
 int validateUserLogin(const char *username, const char *password);
 void userLogout();
 void findUser();
+void findUserByID();;
+void findUserByUsername();;
+void findUserByFullName();;
+void findUserByEmail();;
 void updateUser();
 
 #endif // USER_AUTHENTICATION_H
