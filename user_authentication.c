@@ -130,8 +130,8 @@ void registerNewUser() {
 
             FILE *userFilePtr = fopen(userFile, "r");
             if (userFilePtr == NULL) {
-                perror("Could not open user file");
-                exit(EXIT_FAILURE);
+                printf(ANSI_RED ANSI_ITALIC "Error opening user file, please check your system.\n\n" ANSI_RESET);
+                return;
             }
 
             char line[100];

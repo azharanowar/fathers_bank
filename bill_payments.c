@@ -60,9 +60,7 @@ void payElectricityBill() {
         printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance for paying bill of the amount $%.2f.\n\n" ANSI_RESET, amount);
         return;
     } else {
-        currentBalance -= amount; // currentBalance = currentBalance - amount;
-        saveBalanceToFile();
-
+        
         // Print withdrawal confirmation
         printf("\n");
         system("cls");
@@ -73,6 +71,9 @@ void payElectricityBill() {
         printf(ANSI_RESET);
 
         printf("\n\n");
+
+        currentBalance -= amount; // currentBalance = currentBalance - amount;
+        saveBalanceToFile();
 
         printf(ANSI_BOLD);
         printf(ANSI_GREEN "New account balance is balance is " ANSI_RESET);
@@ -104,9 +105,6 @@ void payGasBill() {
         printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance for paying bill of the amount $%.2f.\n\n" ANSI_RESET, amount);
         return;
     } else {
-        currentBalance -= amount;
-        saveBalanceToFile();
-
         // Print withdrawal confirmation
         printf("\n");
         system("cls");
@@ -117,6 +115,9 @@ void payGasBill() {
         printf(ANSI_RESET);
 
         printf("\n\n");
+
+        currentBalance -= amount;
+        saveBalanceToFile();
 
         printf(ANSI_BOLD);
         printf(ANSI_GREEN "New account balance is balance is " ANSI_RESET);
@@ -149,9 +150,6 @@ void payTransportationBill() {
         printf(ANSI_RED ANSI_ITALIC "\nInsufficient balance for paying bill of the amount $%.2f.\n\n" ANSI_RESET, amount);
         return;
     } else {
-        currentBalance -= amount;
-        saveBalanceToFile();
-
         // Print withdrawal confirmation
         printf("\n");
         system("cls");
@@ -162,6 +160,10 @@ void payTransportationBill() {
         printf(ANSI_RESET);
 
         printf("\n\n");
+
+        currentBalance -= amount;
+        saveBalanceToFile();
+        
 
         printf(ANSI_BOLD);
         printf(ANSI_GREEN "New account balance is balance is " ANSI_RESET);
