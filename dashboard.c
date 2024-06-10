@@ -105,10 +105,12 @@ void showDashboardMenu() {
             showDashboardMenu();
             break;
         case 0:
+            system("cls");
             userLogout();
             main();
             break;
         default:
+            system("cls");
             printf(ANSI_RED ANSI_ITALIC "Wrong menu choice! Please enter correct menu number to proceed.\n\n" ANSI_RESET);
             showDashboardMenu();
             break;
