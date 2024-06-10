@@ -92,3 +92,5 @@
 2024-06-09 23:56:48;Withdraw;130.00;azharanowar;Child;10000.00
 2024-06-09 23:57:00;Withdraw;350.00;azharanowar;Child;9650.00
 2024-06-10 12:54:40;ElecBillPayment;40.00;nurbek;Father;9610.00
+2024-06-10 12:57:56;Deposit;400.00;alrafi;Child;10010.00
+2024-06-10 12:58:13;Withdraw;800.00;alrafi;Child;9210.00

@@ -54,3 +54,12 @@ void removeTrailingWhitespace(char *str) {
     }
 }
 
+int isNumber(char *input) {
+    for (int i = 0; i < strlen(input); i++) {
+        if (!isdigit(input[i])) {
+            return 0; // Return 0 (false) if any character is not a digit
+        }
+    }
+    return 1; // Return 1 (true) if all characters are digits
+}
+

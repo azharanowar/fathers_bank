@@ -14,6 +14,7 @@
 #include "statement.c"
 
 void showDashboardMenu();
+int isNumber(char *input);
 
 int main() {
     printf("\n");
@@ -54,12 +55,15 @@ void showDashboardMenu() {
 
     printf(ANSI_BOLD ANSI_CYAN ANSI_ITALIC);
     printf("Enter your choice: ");
+    char input[10];
     int choice;
-    scanf("%d", &choice);
+    scanf("%s", input);
     printf(ANSI_RESET);
     printf("\n");
 
-    char toContinue;
+    if (isNumber(input)) {
+        choice = atoi(input);
+        char toContinue;
     char confirmProceed;
     switch (choice) {
         case 1:
@@ -113,6 +117,18 @@ void showDashboardMenu() {
             system("cls");
             printf(ANSI_RED ANSI_ITALIC "Wrong menu choice! Please enter correct menu number to proceed.\n\n" ANSI_RESET);
             showDashboardMenu();
-            break;
+            return;
     }
+
+    } else {
+        system("cls");
+        printf(ANSI_RED ANSI_ITALIC "\nInvalid input! You must enter a number.\n\n" ANSI_RESET);
+        showDashboardMenu(); // Re-display the menu if input is not a number
+    }
+    
+    
+
+
+    
 }
+
